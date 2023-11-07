@@ -116,7 +116,7 @@ func newMux(p packetConn) *mux {
 	m := &mux{
 		conn:             p,
 		incomingChannels: make(chan NewChannel, chanSize),
-		globalResponses:  make(chan any, 1),
+		globalResponses:  make(chan interface{}, 1),
 		incomingRequests: make(chan *Request, chanSize),
 		errCond:          newCond(),
 	}

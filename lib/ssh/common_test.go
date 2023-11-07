@@ -10,7 +10,7 @@ import (
 )
 
 func TestFindAgreedAlgorithms(t *testing.T) {
-	initKex := func(k *kexInitMsg) {
+	initKex := func(k *KexInitMsg) {
 		if k.KexAlgos == nil {
 			k.KexAlgos = []string{"kex1"}
 		}
@@ -76,47 +76,47 @@ func TestFindAgreedAlgorithms(t *testing.T) {
 
 	type testcase struct {
 		name                   string
-		clientIn, serverIn     kexInitMsg
+		clientIn, serverIn     KexInitMsg
 		wantClient, wantServer algorithms
 		wantErr                bool
 	}
 
 	cases := []testcase{
-		{
+		testcase{
 			name: "standard",
 		},
 
-		{
+		testcase{
 			name: "no common hostkey",
-			serverIn: kexInitMsg{
+			serverIn: KexInitMsg{
 				ServerHostKeyAlgos: []string{"hostkey2"},
 			},
 			wantErr: true,
 		},
 
-		{
+		testcase{
 			name: "no common kex",
-			serverIn: kexInitMsg{
+			serverIn: KexInitMsg{
 				KexAlgos: []string{"kex2"},
 			},
 			wantErr: true,
 		},
 
-		{
+		testcase{
 			name: "no common cipher",
-			serverIn: kexInitMsg{
+			serverIn: KexInitMsg{
 				CiphersClientServer: []string{"cipher2"},
 			},
 			wantErr: true,
 		},
 
-		{
+		testcase{
 			name: "client decides cipher",
-			serverIn: kexInitMsg{
+			serverIn: KexInitMsg{
 				CiphersClientServer: []string{"cipher1", "cipher2"},
 				CiphersServerClient: []string{"cipher2", "cipher3"},
 			},
-			clientIn: kexInitMsg{
+			clientIn: KexInitMsg{
 				CiphersClientServer: []string{"cipher2", "cipher1"},
 				CiphersServerClient: []string{"cipher3", "cipher2"},
 			},

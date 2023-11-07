@@ -20,7 +20,7 @@
 package test
 
 import (
-	"errors"
+	"fmt"
 	"strings"
 	"testing"
 
@@ -70,34 +70,34 @@ func (ctx *multiAuthTestCtx) kbdIntCb(user, instruction string, questions []stri
 		return []string{ctx.password}, nil
 	}
 
-	return nil, errors.New("unsupported keyboard-interactive flow")
+	return nil, fmt.Errorf("unsupported keyboard-interactive flow")
 }
 
 // TestMultiAuth runs several subtests for different combinations of password, keyboard-interactive and publickey authentication methods
 func TestMultiAuth(t *testing.T) {
 	testCases := []multiAuthTestCase{
 		// Test password,publickey authentication, assert that password callback is called 1 time
-		{
+		multiAuthTestCase{
 			authMethods:         []string{"password", "publickey"},
 			expectedPasswordCbs: 1,
 		},
 		// Test keyboard-interactive,publickey authentication, assert that keyboard-interactive callback is called 1 time
-		{
+		multiAuthTestCase{
 			authMethods:       []string{"keyboard-interactive", "publickey"},
 			expectedKbdIntCbs: 1,
 		},
 		// Test publickey,password authentication, assert that password callback is called 1 time
-		{
+		multiAuthTestCase{
 			authMethods:         []string{"publickey", "password"},
 			expectedPasswordCbs: 1,
 		},
 		// Test publickey,keyboard-interactive authentication, assert that keyboard-interactive callback is called 1 time
-		{
+		multiAuthTestCase{
 			authMethods:       []string{"publickey", "keyboard-interactive"},
 			expectedKbdIntCbs: 1,
 		},
 		// Test password,password authentication, assert that password callback is called 2 times
-		{
+		multiAuthTestCase{
 			authMethods:         []string{"password", "password"},
 			expectedPasswordCbs: 2,
 		},

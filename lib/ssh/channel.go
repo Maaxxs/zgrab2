@@ -210,7 +210,7 @@ func (ch *channel) writePacket(packet []byte) error {
 	return err
 }
 
-func (ch *channel) sendMessage(msg any) error {
+func (ch *channel) sendMessage(msg interface{}) error {
 	if debugMux {
 		log.Printf("send(%d): %#v", ch.mux.chanList.offset, msg)
 	}
@@ -242,7 +242,7 @@ func (ch *channel) WriteExtended(data []byte, extendedCode uint32) (n int, err e
 	ch.writeMu.Unlock()
 
 	for len(data) > 0 {
-		space := min(ch.maxRemotePayload, uint32(len(data)))
+		space := min(ch.maxRemotePayload, len(data))
 		if space, err = ch.remoteWin.reserve(space); err != nil {
 			return n, err
 		}
@@ -455,7 +455,7 @@ func (m *mux) newChannel(chanType string, direction channelDirection, extraData 
 		extPending:       newBuffer(),
 		direction:        direction,
 		incomingRequests: make(chan *Request, chanSize),
-		msg:              make(chan any, chanSize),
+		msg:              make(chan interface{}, chanSize),
 		chanType:         chanType,
 		extraData:        extraData,
 		mux:              m,

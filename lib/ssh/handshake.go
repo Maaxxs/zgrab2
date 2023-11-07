@@ -61,7 +61,7 @@ type handshakeTransport struct {
 	mu               sync.Mutex
 	writeError       error
 	sentInitPacket   []byte
-	sentInitMsg      *kexInitMsg
+	sentInitMsg      *KexInitMsg
 	pendingPackets   [][]byte // Used when a key exchange is in progress.
 	writePacketsLeft uint32
 	writeBytesLeft   int64
@@ -158,7 +158,7 @@ func (t *handshakeTransport) waitSession() error {
 		return err
 	}
 	if p[0] != msgNewKeys {
-		return errors.New("ssh: first packet should be msgNewKeys")
+		return fmt.Errorf("ssh: first packet should be msgNewKeys")
 	}
 
 	return nil
@@ -296,7 +296,7 @@ write:
 		// we never block on sending to t.requestKex.
 
 		// We're not servicing t.startKex, but the remote end
-		// has just sent us a kexInitMsg, so it can't send
+		// has just sent us a KexInitMsg, so it can't send
 		// another key change request, until we close the done
 		// channel on the pendingKex request.
 
@@ -396,7 +396,7 @@ func (t *handshakeTransport) readOnePacket(first bool) ([]byte, error) {
 	}
 
 	if first && p[0] != msgKexInit {
-		return nil, errors.New("ssh: first packet should be msgKexInit")
+		return nil, fmt.Errorf("ssh: first packet should be msgKexInit")
 	}
 
 	if p[0] != msgKexInit {
@@ -565,7 +565,7 @@ func (t *handshakeTransport) enterKeyExchange(otherInitPacket []byte) error {
 		log.Printf("%s entered key exchange", t.id())
 	}
 
-	otherInit := &kexInitMsg{}
+	otherInit := &KexInitMsg{}
 	if err := Unmarshal(otherInitPacket, otherInit); err != nil {
 		return err
 	}
@@ -621,8 +621,6 @@ func (t *handshakeTransport) enterKeyExchange(otherInitPacket []byte) error {
 	if !ok {
 		return fmt.Errorf("ssh: unexpected key exchange algorithm %v", t.algorithms.kex)
 	}
-
-	kex = kex.GetNew(t.algorithms.kex)
 
 	if t.config.ConnLog != nil {
 		t.config.ConnLog.KeyExchange = kex

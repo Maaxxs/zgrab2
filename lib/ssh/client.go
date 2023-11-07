@@ -5,11 +5,9 @@
 package ssh
 
 import (
-	"bytes"
 	"errors"
 	"fmt"
 	"net"
-	"os"
 	"strings"
 	"sync"
 	"time"
@@ -165,10 +163,7 @@ func (c *connection) clientHandshake(dialAddress string, config *ClientConfig) e
 	}
 
 	c.sessionID = c.transport.getSessionID()
-	if !config.CollectExtensions && !config.CollectUserAuth && config.DontAuthenticate {
-		// Save at least one RTT by exiting early
-		return nil
-	}
+
 	return c.clientAuthenticate(config)
 }
 
@@ -315,44 +310,4 @@ type ClientConfig struct {
 
 	// If true, the client will not attempt to authenticate.
 	DontAuthenticate bool
-}
-
-// InsecureIgnoreHostKey returns a function that can be used for
-// ClientConfig.HostKeyCallback to accept any host key. It should
-// not be used for production code.
-func InsecureIgnoreHostKey() HostKeyCallback {
-	return func(hostname string, remote net.Addr, key PublicKey) error {
-		return nil
-	}
-}
-
-type fixedHostKey struct {
-	key PublicKey
-}
-
-func (f *fixedHostKey) check(hostname string, remote net.Addr, key PublicKey) error {
-	if f.key == nil {
-		return errors.New("ssh: required host key was nil")
-	}
-	if !bytes.Equal(key.Marshal(), f.key.Marshal()) {
-		return errors.New("ssh: host key mismatch")
-	}
-	return nil
-}
-
-// FixedHostKey returns a function for use in
-// ClientConfig.HostKeyCallback to accept only a specific host key.
-func FixedHostKey(key PublicKey) HostKeyCallback {
-	hk := &fixedHostKey{key}
-	return hk.check
-}
-
-// BannerDisplayStderr returns a function that can be used for
-// ClientConfig.BannerCallback to display banners on os.Stderr.
-func BannerDisplayStderr() BannerCallback {
-	return func(banner string) error {
-		_, err := os.Stderr.WriteString(banner)
-
-		return err
-	}
 }

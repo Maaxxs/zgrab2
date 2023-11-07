@@ -964,7 +964,7 @@ func (k *skEd25519PublicKey) Verify(data []byte, sig *Signature) error {
 // *ecdsa.PrivateKey or any other crypto.Signer and returns a
 // corresponding Signer instance. ECDSA keys must use P-256, P-384 or
 // P-521. DSA keys must use parameter size L1024N160.
-func NewSignerFromKey(key any) (Signer, error) {
+func NewSignerFromKey(key interface{}) (Signer, error) {
 	switch key := key.(type) {
 	case crypto.Signer:
 		return NewSignerFromSigner(key)
@@ -1137,7 +1137,7 @@ func (*PassphraseMissingError) Error() string {
 // ParseRawPrivateKey returns a private key from a PEM encoded private key. It
 // supports RSA (PKCS#1), PKCS#8, DSA (OpenSSL), and ECDSA private keys. If the
 // private key is encrypted, it will return a PassphraseMissingError.
-func ParseRawPrivateKey(pemBytes []byte) (any, error) {
+func ParseRawPrivateKey(pemBytes []byte) (interface{}, error) {
 	block, _ := pem.Decode(pemBytes)
 	if block == nil {
 		return nil, errors.New("ssh: no key found")
@@ -1276,7 +1276,7 @@ func passphraseProtectedOpenSSHKey(passphrase []byte) openSSHDecryptFunc {
 			ctr.XORKeyStream(privKeyBlock, privKeyBlock)
 		case "aes256-cbc":
 			if len(privKeyBlock)%c.BlockSize() != 0 {
-				return nil, errors.New("ssh: invalid encrypted private key length, not a multiple of the block size")
+				return nil, fmt.Errorf("ssh: invalid encrypted private key length, not a multiple of the block size")
 			}
 			cbc := cipher.NewCBCDecrypter(c, iv)
 			cbc.CryptBlocks(privKeyBlock, privKeyBlock)

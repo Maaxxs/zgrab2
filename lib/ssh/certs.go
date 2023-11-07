@@ -484,7 +484,7 @@ func (c *CertChecker) Authenticate(conn ConnMetadata, pubKey PublicKey) (*Permis
 		return nil, fmt.Errorf("ssh: cert has type %d", cert.CertType)
 	}
 	if !c.IsUserAuthority(cert.SignatureKey) {
-		return nil, errors.New("ssh: certificate signed by unrecognized authority")
+		return nil, fmt.Errorf("ssh: certificate signed by unrecognized authority")
 	}
 
 	if err := c.CheckCert(conn.User(), cert); err != nil {
