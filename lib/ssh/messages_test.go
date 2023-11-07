@@ -277,16 +277,16 @@ func (*kexDHInitMsg) Generate(rand *rand.Rand, size int) reflect.Value {
 }
 
 var (
-	_kexInitMsg   = new(KexInitMsg).Generate(rand.New(rand.NewSource(0)), 10).Elem().Interface()
+	_KexInitMsg   = new(KexInitMsg).Generate(rand.New(rand.NewSource(0)), 10).Elem().Interface()
 	_kexDHInitMsg = new(kexDHInitMsg).Generate(rand.New(rand.NewSource(0)), 10).Elem().Interface()
 
-	_kexInit   = Marshal(_kexInitMsg)
+	_kexInit   = Marshal(_KexInitMsg)
 	_kexDHInit = Marshal(_kexDHInitMsg)
 )
 
 func BenchmarkMarshalKexInitMsg(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		Marshal(_kexInitMsg)
+		Marshal(_KexInitMsg)
 	}
 }
 
