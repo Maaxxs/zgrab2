@@ -15,6 +15,7 @@ import (
 	_ "crypto/sha1"
 	_ "crypto/sha256"
 	_ "crypto/sha512"
+	_ "crypto/md5"
 )
 
 // These are string constants in the SSH protocol.
@@ -77,7 +78,7 @@ var supportedHostKeyAlgos = []string{
 // This is based on RFC 4253, section 6.4, but with hmac-md5 variants removed
 // because they have reached the end of their useful life.
 var supportedMACs = []string{
-	"hmac-sha2-256", "hmac-sha1", "hmac-sha1-96",
+	"hmac-sha2-256", "hmac-sha1", "hmac-sha1-96", "hmac-md5", "hmac-md5-96",
 }
 
 var supportedCompressions = []string{compressionNone}
