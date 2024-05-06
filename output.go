@@ -146,10 +146,18 @@ func OutputResultsWriterFunc(w io.Writer) OutputResultsFunc {
 
 // OutputResults writes results to a buffered Writer from a channel.
 func OutputResults(w *bufio.Writer, results <-chan []byte) error {
+	first_entry_written := false
+
+	w.WriteByte('[')
 	for result := range results {
+		if first_entry_written {
+			w.WriteByte(',')
+		}
+
 		if _, err := w.Write(result); err != nil {
 			return err
 		}
+		first_entry_written = true
 		if err := w.WriteByte('\n'); err != nil {
 			return err
 		}
@@ -157,5 +165,6 @@ func OutputResults(w *bufio.Writer, results <-chan []byte) error {
 			w.Flush()
 		}
 	}
+	w.WriteByte(']')
 	return nil
 }
