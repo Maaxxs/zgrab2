@@ -84,6 +84,7 @@ func (s *SSHScanner) GetTrigger() string {
 }
 
 func (s *SSHScanner) Scan(t zgrab2.ScanTarget) (zgrab2.ScanStatus, interface{}, error) {
+	log.Debugf("Start SSH scan ")
 	data := new(ssh.HandshakeLog)
 
 	var port uint
@@ -125,6 +126,7 @@ func (s *SSHScanner) Scan(t zgrab2.ScanTarget) (zgrab2.ScanStatus, interface{}, 
 	_, err := ssh.Dial("tcp", rhost, sshConfig)
 	// TODO FIXME: Distinguish error types
 	status := zgrab2.TryGetScanStatus(err)
+	log.Debugf("SSH scan status: %s",status)
 	return status, data, err
 }
 
