@@ -17,6 +17,7 @@ func RegisterScan(name string, s Scanner) {
 	}
 	orderedScanners = append(orderedScanners, name)
 	scanners[name] = &s
+	log.Infof("Registered scanner: %s ", name)
 }
 
 // PrintScanners prints all registered scanners

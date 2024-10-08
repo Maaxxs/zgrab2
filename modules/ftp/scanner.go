@@ -156,12 +156,14 @@ func (ftp *Connection) isOKResponse(retCode string) bool {
 // readResponse reads an FTP response chunk from the server.
 // It returns the full response, as well as the status code alone.
 func (ftp *Connection) readResponse() (string, string, error) {
+	log.Debugf("Start ftp read response")
 	respLen, err := zgrab2.ReadUntilRegex(ftp.conn, ftp.buffer[:], ftpEndRegex)
 	if err != nil {
 		return "", "", err
 	}
 	ret := string(ftp.buffer[0:respLen])
 	retCode := ftpEndRegex.FindStringSubmatch(ret)[1]
+	log.Debugf("Finish ftp read response")
 	return ret, retCode, nil
 }
 
@@ -247,6 +249,7 @@ func (ftp *Connection) GetFTPSCertificates() error {
 //     results.TLSLog.
 //   - Return SCAN_SUCCESS, &results, nil
 func (s *Scanner) Scan(t zgrab2.ScanTarget) (status zgrab2.ScanStatus, result interface{}, thrown error) {
+	log.Debugf("Start ftp scan")
 	var err error
 	conn, err := t.Open(&s.config.BaseFlags)
 	if err != nil {
@@ -282,5 +285,6 @@ func (s *Scanner) Scan(t zgrab2.ScanTarget) (status zgrab2.ScanStatus, result in
 			return zgrab2.TryGetScanStatus(err), &ftp.results, fmt.Errorf("error getting FTPS certificates: %w", err)
 		}
 	}
+	log.Debugf("Finished ftp scan")
 	return zgrab2.SCAN_SUCCESS, &ftp.results, nil
 }
