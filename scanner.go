@@ -2,7 +2,7 @@ package zgrab2
 
 import (
 	"fmt"
-	"log"
+	log "github.com/sirupsen/logrus" // original import was just "log"
 	"time"
 )
 
@@ -17,7 +17,7 @@ func RegisterScan(name string, s Scanner) {
 	}
 	orderedScanners = append(orderedScanners, name)
 	scanners[name] = &s
-	log.Infof("Registered scanner: %s ", name)
+	log.Debugf("Registered scanner: %s ", name)
 }
 
 // PrintScanners prints all registered scanners
