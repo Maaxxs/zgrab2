@@ -1,7 +1,6 @@
 package modules
 
 import (
-	"context"
 	"fmt"
 	"net"
 	"strconv"
@@ -98,7 +97,8 @@ func (s *SSHScanner) GetTrigger() string {
 	return s.config.Trigger
 }
 
-func (s *SSHScanner) Scan(ctx context.Context, dialGroup *zgrab2.DialerGroup, t *zgrab2.ScanTarget) (zgrab2.ScanStatus, any, error) {
+func (s *SSHScanner) Scan(t zgrab2.ScanTarget) (zgrab2.ScanStatus, interface{}, error) {
+	log.Debugf("Start SSH scan ")
 	data := new(ssh.HandshakeLog)
 	portStr := strconv.Itoa(int(t.Port))
 	rhost := net.JoinHostPort(t.Host(), portStr)
@@ -155,6 +155,7 @@ func (s *SSHScanner) Scan(ctx context.Context, dialGroup *zgrab2.DialerGroup, t 
 
 	// TODO FIXME: Distinguish error types
 	status := zgrab2.TryGetScanStatus(err)
+	log.Debugf("SSH scan status: %s", status)
 	return status, data, err
 }
 

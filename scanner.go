@@ -33,6 +33,7 @@ func RegisterScan(name string, s Scanner) {
 	}
 	defaultDialerGroupToScanners[name] = dialerGroup
 	scanners[name] = &s
+	log.Infof("Registered scanner: %s ", name)
 }
 
 // PrintScanners prints all registered scanners
