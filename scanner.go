@@ -3,7 +3,7 @@ package zgrab2
 import (
 	"context"
 	"fmt"
-	"log"
+	log "github.com/sirupsen/logrus" // original import was just "log"
 	"time"
 )
 
@@ -33,7 +33,7 @@ func RegisterScan(name string, s Scanner) {
 	}
 	defaultDialerGroupToScanners[name] = dialerGroup
 	scanners[name] = &s
-	log.Infof("Registered scanner: %s ", name)
+	log.Debugf("Registered scanner: %s ", name)
 }
 
 // PrintScanners prints all registered scanners
