@@ -63,6 +63,11 @@ func validateFrameworkConfiguration() {
 		}
 		log.SetOutput(config.logFile)
 	}
+
+	if config.Debug{
+		log.SetLevel(log.DebugLevel)
+	}
+
 	SetInputFunc(InputTargetsCSV)
 
 	if config.InputFileName == "-" {

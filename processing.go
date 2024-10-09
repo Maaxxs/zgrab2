@@ -194,7 +194,7 @@ func Process(mon *Monitor) {
 	workers := config.Senders
 	processQueue := make(chan ScanTarget, workers*4)
 	outputQueue := make(chan []byte, workers*4)
-
+	log.Debugf("Execute Process function")
 	//Create wait groups
 	var workerDone sync.WaitGroup
 	var outputDone sync.WaitGroup
