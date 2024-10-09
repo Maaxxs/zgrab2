@@ -17,7 +17,7 @@ func RegisterScan(name string, s Scanner) {
 	}
 	orderedScanners = append(orderedScanners, name)
 	scanners[name] = &s
-	log.Debugf("Registered scanner: %s ", name)
+	log.Infof("Registered scanner: %s ", name)
 }
 
 // PrintScanners prints all registered scanners
@@ -29,6 +29,7 @@ func PrintScanners() {
 
 // RunScanner runs a single scan on a target and returns the resulting data
 func RunScanner(s Scanner, mon *Monitor, target ScanTarget) (string, ScanResponse) {
+	
 	t := time.Now()
 	status, res, e := s.Scan(target)
 	var err *string
