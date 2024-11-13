@@ -50,12 +50,12 @@ type Scanner struct {
 
 // ScanResults instances are returned by the module's Scan function.
 type Results struct {
-	Banner string         `json:"banner,omitempty"`
-	Length int            `json:"length,omitempty"`
-	TLSLog *zgrab2.TLSLog `json:"tls,omitempty"`
-	MD5    string         `json:"md5,omitempty"`
-	SHA1   string         `json:"sha1,omitempty"`
-	SHA256 string         `json:"sha25,omitempty"`
+	Banner string         `json:"banner"`
+	Length int            `json:"length"`
+	TLSLog *zgrab2.TLSLog `json:"tls"`
+	MD5    string         `json:"md5"`
+	SHA1   string         `json:"sha1"`
+	SHA256 string         `json:"sha25"`
 }
 
 var NoMatchError = errors.New("pattern did not match")

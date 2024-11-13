@@ -70,17 +70,17 @@ type KexInitMsg struct {
 }
 
 type JsonKexInitMsg struct {
-	Cookie                  []byte   `json:"cookie,omitempty"`
-	KexAlgos                []string `json:"kex_algorithms,omitempty"`
-	ServerHostKeyAlgos      []string `json:"host_key_algorithms,omitempty"`
-	CiphersClientServer     []string `json:"client_to_server_ciphers,omitempty"`
-	CiphersServerClient     []string `json:"server_to_client_ciphers,omitempty"`
-	MACsClientServer        []string `json:"client_to_server_macs,omitempty"`
-	MACsServerClient        []string `json:"server_to_client_macs,omitempty"`
-	CompressionClientServer []string `json:"client_to_server_compression,omitempty"`
-	CompressionServerClient []string `json:"server_to_client_compression,omitempty"`
-	LanguagesClientServer   []string `json:"client_to_server_languages,omitempty"`
-	LanguagesServerClient   []string `json:"server_to_client_languages,omitempty"`
+	Cookie                  []byte   `json:"cookie"`
+	KexAlgos                []string `json:"kex_algorithms"`
+	ServerHostKeyAlgos      []string `json:"host_key_algorithms"`
+	CiphersClientServer     []string `json:"client_to_server_ciphers"`
+	CiphersServerClient     []string `json:"server_to_client_ciphers"`
+	MACsClientServer        []string `json:"client_to_server_macs"`
+	MACsServerClient        []string `json:"server_to_client_macs"`
+	CompressionClientServer []string `json:"client_to_server_compression"`
+	CompressionServerClient []string `json:"server_to_client_compression"`
+	LanguagesClientServer   []string `json:"client_to_server_languages"`
+	LanguagesServerClient   []string `json:"server_to_client_languages"`
 	FirstKexFollows         bool     `json:"first_kex_follows"`
 	Reserved                uint32   `json:"reserved"`
 	ServerHaSSH             string   `json:"serverHaSSH"`

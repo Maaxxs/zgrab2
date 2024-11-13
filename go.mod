@@ -2,6 +2,8 @@ module github.com/zmap/zgrab2
 
 go 1.20
 
+replace github.com/zmap/zgrab2/modules/ftp => ./modules/ftp
+
 require (
 	github.com/hdm/jarm-go v0.0.7
 	github.com/prometheus/client_golang v1.14.0

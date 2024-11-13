@@ -68,24 +68,24 @@ type scan struct {
 // ScanResults instances are returned by the module's Scan function.
 type ScanResults struct {
 	//TODO: ?Include the request sent as well??
-	Response     *http.Response `json:"response,omitempty" zgrab:"debug"`
-	CUPSResponse *http.Response `json:"cups_response,omitempty" zgrab:"debug"`
+	Response     *http.Response `json:"response" zgrab:"debug"`
+	CUPSResponse *http.Response `json:"cups_response" zgrab:"debug"`
 
 	// RedirectResponseChain is non-empty if the scanner follows a redirect.
 	// It contains all redirect responses prior to the final response.
-	RedirectResponseChain []*http.Response `json:"redirect_response_chain,omitempty" zgrab:"debug"`
+	RedirectResponseChain []*http.Response `json:"redirect_response_chain" zgrab:"debug"`
 
-	MajorVersion  *int8  `json:"version_major,omitempty"`
-	MinorVersion  *int8  `json:"version_minor,omitempty"`
-	VersionString string `json:"version_string,omitempty"`
-	CUPSVersion   string `json:"cups_version,omitempty"`
+	MajorVersion  *int8  `json:"version_major"`
+	MinorVersion  *int8  `json:"version_minor"`
+	VersionString string `json:"version_string"`
+	CUPSVersion   string `json:"cups_version"`
 
-	Attributes           []*Attribute `json:"attributes,omitempty"`
-	AttributeCUPSVersion string       `json:"attr_cups_version,omitempty"`
-	AttributeIPPVersions []string     `json:"attr_ipp_versions,omitempty"`
-	AttributePrinterURIs []string     `json:"attr_printer_uris,omitempty"`
+	Attributes           []*Attribute `json:"attributes"`
+	AttributeCUPSVersion string       `json:"attr_cups_version"`
+	AttributeIPPVersions []string     `json:"attr_ipp_versions"`
+	AttributePrinterURIs []string     `json:"attr_printer_uris"`
 
-	TLSLog *zgrab2.TLSLog `json:"tls,omitempty"`
+	TLSLog *zgrab2.TLSLog `json:"tls"`
 }
 
 // Flags holds the command-line configuration for the ipp scan module.
@@ -218,13 +218,13 @@ func bufferFromBody(res *http.Response, scanner *Scanner) *bytes.Buffer {
 }
 
 type Value struct {
-	Bytes []byte `json:"raw,omitempty"`
+	Bytes []byte `json:"raw"`
 }
 
 type Attribute struct {
-	Name     string  `json:"name,omitempty"`
-	Values   []Value `json:"values,omitempty"`
-	ValueTag byte    `json:"tag,omitempty"`
+	Name     string  `json:"name"`
+	Values   []Value `json:"values"`
+	ValueTag byte    `json:"tag"`
 }
 
 func shouldReturnAttrs(length, soFar, size, upperBound int) (bool, error) {

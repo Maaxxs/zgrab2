@@ -26,10 +26,10 @@ type APDU struct {
 }
 
 type Frame struct {
-	VLC     *VLC        `json:"vlc,omitempty"`
-	NPDU    *NPDU       `json:"npdu,omitempty"`
-	APDU    *APDU       `json:"apdu,omitempty"`
-	Payload interface{} `json:"payload,omitempty"`
+	VLC     *VLC        `json:"vlc"`
+	NPDU    *NPDU       `json:"npdu"`
+	APDU    *APDU       `json:"apdu"`
+	Payload interface{} `json:"payload"`
 }
 
 const vlcLength = 4

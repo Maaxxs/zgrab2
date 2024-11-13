@@ -90,11 +90,11 @@ type Flags struct {
 // implementation.
 type Results struct {
 	// Result is the final HTTP response in the RedirectResponseChain
-	Response *http.Response `json:"response,omitempty"`
+	Response *http.Response `json:"response"`
 
 	// RedirectResponseChain is non-empty is the scanner follows a redirect.
 	// It contains all redirect response prior to the final response.
-	RedirectResponseChain []*http.Response `json:"redirect_response_chain,omitempty"`
+	RedirectResponseChain []*http.Response `json:"redirect_response_chain"`
 }
 
 // Module is an implementation of the zgrab2.Module interface.

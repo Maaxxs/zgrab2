@@ -32,8 +32,8 @@ type auxRSAPublicKey struct {
 }
 
 type RSAClientParams struct {
-	Length       uint16 `json:"length,omitempty"`
-	EncryptedPMS []byte `json:"encrypted_pre_master_secret,omitempty"`
+	Length       uint16 `json:"length"`
+	EncryptedPMS []byte `json:"encrypted_pre_master_secret"`
 }
 
 // MarshalJSON implements the json.Marshal interface

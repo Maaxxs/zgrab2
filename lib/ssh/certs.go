@@ -58,8 +58,8 @@ const (
 
 // Signature represents a cryptographic signature.
 type Signature struct {
-	Format string `json:"algorithm,omitempty"`
-	Blob   []byte `json:"value,omitempty"`
+	Format string `json:"algorithm"`
+	Blob   []byte `json:"value"`
 	Rest   []byte `ssh:"rest"`
 }
 
@@ -100,31 +100,31 @@ type JsonCertType struct {
 
 type JsonPubKeyWrapper struct {
 	PublicKeyJsonLog
-	Raw         []byte `json:"raw,omitempty"`
+	Raw         []byte `json:"raw"`
 	Fingerprint string `json:"fingerprint_sha256"`
 	Algorithm   string `json:"algorithm"`
 }
 
 type JsonSignature struct {
-	Parsed *Signature `json:"parsed,omitempty"`
-	Raw    []byte     `json:"raw,omitempty"`
-	H      []byte     `json:"h,omitempty"`
+	Parsed *Signature `json:"parsed"`
+	Raw    []byte     `json:"raw"`
+	H      []byte     `json:"h"`
 }
 
 type JsonCertificate struct {
-	Nonce           []byte               `json:"nonce,omitempty"`
-	Key             *JsonPubKeyWrapper   `json:"key,omitempty"`
+	Nonce           []byte               `json:"nonce"`
+	Key             *JsonPubKeyWrapper   `json:"key"`
 	Serial          string               `json:"serial"`
-	CertType        *JsonCertType        `json:"cert_type,omitempty"`
-	KeyId           string               `json:"key_id,omitempty"`
-	ValidPrincipals []string             `json:"valid_principals,omitempty"`
-	Validity        *JsonValidity        `json:"validity,omitempty"`
-	Reserved        []byte               `json:"reserved,omitempty"`
+	CertType        *JsonCertType        `json:"cert_type"`
+	KeyId           string               `json:"key_id"`
+	ValidPrincipals []string             `json:"valid_principals"`
+	Validity        *JsonValidity        `json:"validity"`
+	Reserved        []byte               `json:"reserved"`
 	SignatureKey    *JsonPubKeyWrapper   `json:"signature_key"`
-	Signature       *JsonSignature       `json:"signature,omitempty"`
-	ParseError      string               `json:"parse_error,omitempty"`
-	Extensions      *JsonExtensions      `json:"extensions,omitempty"`
-	CriticalOptions *JsonCriticalOptions `json:"critical_options,omitempty"`
+	Signature       *JsonSignature       `json:"signature"`
+	ParseError      string               `json:"parse_error"`
+	Extensions      *JsonExtensions      `json:"extensions"`
+	CriticalOptions *JsonCriticalOptions `json:"critical_options"`
 }
 
 func (c *Certificate) MarshalJSON() ([]byte, error) {

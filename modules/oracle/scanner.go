@@ -31,11 +31,11 @@ import (
 // ScanResults instances are returned by the module's Scan function.
 type ScanResults struct {
 	// Handshake is the log of the TNS handshake between client and server.
-	Handshake *HandshakeLog `json:"handshake,omitempty"`
+	Handshake *HandshakeLog `json:"handshake"`
 
 	// TLSLog contains the log of the TLS handshake (and any additional
 	// configured TLS scan operations).
-	TLSLog *zgrab2.TLSLog `json:"tls,omitempty"`
+	TLSLog *zgrab2.TLSLog `json:"tls"`
 }
 
 // Flags holds the command-line configuration for the HTTP scan module.

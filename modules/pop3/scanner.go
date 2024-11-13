@@ -36,22 +36,22 @@ import (
 // ScanResults instances are returned by the module's Scan function.
 type ScanResults struct {
 	// Banner is the string sent by the server immediately after connecting.
-	Banner string `json:"banner,omitempty"`
+	Banner string `json:"banner"`
 
 	// NOOP is the server's response to the NOOP command, if one is sent.
-	NOOP string `json:"noop,omitempty"`
+	NOOP string `json:"noop"`
 
 	// HELP is the server's response to the HELP command, if it is sent.
-	HELP string `json:"help,omitempty"`
+	HELP string `json:"help"`
 
 	// StartTLS is the server's response to the STARTTLS command, if it is sent.
-	StartTLS string `json:"starttls,omitempty"`
+	StartTLS string `json:"starttls"`
 
 	// QUIT is the server's response to the QUIT command, if it is sent.
-	QUIT string `json:"quit,omitempty"`
+	QUIT string `json:"quit"`
 
 	// TLSLog is the standard TLS log, if --starttls or --pop3s is enabled.
-	TLSLog *zgrab2.TLSLog `json:"tls,omitempty"`
+	TLSLog *zgrab2.TLSLog `json:"tls"`
 }
 
 // Flags holds the command-line configuration for the POP3 scan module.

@@ -303,8 +303,8 @@ func FormatHeaderName(s string) string {
 }
 
 type UnknownHeader struct {
-	Key    string   `json:"key,omitempty"`
-	Values []string `json:"value,omitempty"`
+	Key    string   `json:"key"`
+	Values []string `json:"value"`
 }
 
 func formatHeaderValues(v []string) {

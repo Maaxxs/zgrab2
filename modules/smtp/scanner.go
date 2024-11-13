@@ -41,29 +41,29 @@ var ErrInvalidResponse = zgrab2.NewScanError(zgrab2.SCAN_PROTOCOL_ERROR, errors.
 // ScanResults instances are returned by the module's Scan function.
 type ScanResults struct {
 	// Banner is the string sent by the server immediately after connecting.
-	Banner string `json:"banner,omitempty"`
+	Banner string `json:"banner"`
 
 	// HELO is the server's response to the HELO command, if one is sent.
-	HELO string `json:"helo,omitempty"`
+	HELO string `json:"helo"`
 
 	// EHLO is the server's response to the EHLO command, if one is sent.
-	EHLO string `json:"ehlo,omitempty"`
+	EHLO string `json:"ehlo"`
 
 	// HELP is the server's response to the HELP command, if it is sent.
-	HELP string `json:"help,omitempty"`
+	HELP string `json:"help"`
 
 	// StartTLS is the server's response to the STARTTLS command, if it is sent.
-	StartTLS string `json:"starttls,omitempty"`
+	StartTLS string `json:"starttls"`
 
 	// QUIT is the server's response to the QUIT command, if it is sent.
-	QUIT string `json:"quit,omitempty"`
+	QUIT string `json:"quit"`
 
 	// ImplicitTLS is true if the connection was wrapped in TLS, as opposed
 	// to using StartTls
-	ImplicitTLS bool `json:"implicit_tls,omitempty"`
+	ImplicitTLS bool `json:"implicit_tls"`
 
 	// TLSLog is the standard TLS log, if STARTTLS is sent.
-	TLSLog *zgrab2.TLSLog `json:"tls,omitempty"`
+	TLSLog *zgrab2.TLSLog `json:"tls"`
 }
 
 // Flags holds the command-line configuration for the HTTP scan module.

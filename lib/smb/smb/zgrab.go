@@ -64,7 +64,7 @@ type NegotiationLog struct {
 
 	// AuthenticationTypes is a list of OBJECT IDENTIFIERs (in dotted-decimal
 	// format) identifying authentication modes that the server supports.
-	AuthenticationTypes []string `json:"authentication_types,omitempty"`
+	AuthenticationTypes []string `json:"authentication_types"`
 }
 
 // SessionSetupLog contains the relevant parts of the first session setup
@@ -115,12 +115,12 @@ const (
 
 type SMBCapabilities struct {
 	DFSSupport bool `json:"smb_dfs_support"`
-	Leasing    bool `json:"smb_leasing_support,omitempty"`           // Valid for >2.0.2
-	LargeMTU   bool `json:"smb_multicredit_support,omitempty"`       // Valid for >2.0.2
-	MultiChan  bool `json:"smb_multichan_support,omitempty"`         // Valid for >2.1
-	Persist    bool `json:"smb_persistent_handle_support,omitempty"` // Valid for >2.1
-	DirLeasing bool `json:"smb_directory_leasing_support,omitempty"` // Valid for >2.1
-	Encryption bool `json:"smb_encryption_support,omitempty"`        // Only for 3.0, 3.0.2
+	Leasing    bool `json:"smb_leasing_support"`           // Valid for >2.0.2
+	LargeMTU   bool `json:"smb_multicredit_support"`       // Valid for >2.0.2
+	MultiChan  bool `json:"smb_multichan_support"`         // Valid for >2.1
+	Persist    bool `json:"smb_persistent_handle_support"` // Valid for >2.1
+	DirLeasing bool `json:"smb_directory_leasing_support"` // Valid for >2.1
+	Encryption bool `json:"smb_encryption_support"`        // Only for 3.0, 3.0.2
 }
 
 // SMBLog logs the relevant information about the session.
@@ -129,7 +129,7 @@ type SMBLog struct {
 	// version 1.
 	SupportV1 bool `json:"smbv1_support"`
 
-	Version *SMBVersions `json:"smb_version,omitempty"`
+	Version *SMBVersions `json:"smb_version"`
 
 	// If present, represent the NativeOS, NTLM, and GroupName fields of SMBv1 Session Setup Negotiation
 	// An empty string for these values indicate the data was not available
@@ -146,18 +146,18 @@ type SMBLog struct {
 	//
 	// This is based on Sect. 2.2.4 from the [MS-SMB2] document, which states:
 	// "The Capabilities field specifies protocol capabilities for the server."
-	Capabilities *SMBCapabilities `json:"smb_capabilities,omitempty"`
+	Capabilities *SMBCapabilities `json:"smb_capabilities"`
 
 	// HasNTLM is true if the server supports the NTLM authentication method.
 	HasNTLM bool `json:"has_ntlm"`
 
 	// NegotiationLog, if present, contains the server's response to the
 	// negotiation request.
-	NegotiationLog *NegotiationLog `json:"negotiation_log,omitempty"`
+	NegotiationLog *NegotiationLog `json:"negotiation_log"`
 
 	// SessionSetupLog, if present, contains the server's response to the
 	// session setup request.
-	SessionSetupLog *SessionSetupLog `json:"session_setup_log,omitempty"`
+	SessionSetupLog *SessionSetupLog `json:"session_setup_log"`
 }
 
 // LoggedSession wraps the Session struct, and holds a Log struct alongside it

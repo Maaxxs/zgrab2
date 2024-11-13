@@ -44,10 +44,10 @@ const (
 // kexResult captures the outcome of a key exchange.
 type kexResult struct {
 	// Session hash. See also RFC 4253, section 8.
-	H []byte `json:"H,omitempty"`
+	H []byte `json:"H"`
 
 	// Shared secret. See also RFC 4253, section 8.
-	K []byte `json:"K,omitempty"`
+	K []byte `json:"K"`
 
 	// Host key as hashed into H.
 	HostKey []byte `json:"-"`
@@ -62,7 +62,7 @@ type kexResult struct {
 
 	// The session ID, which is the first H computed. This is used
 	// to derive key material inside the transport.
-	SessionID []byte `json:"session_id,omitempty"`
+	SessionID []byte `json:"session_id"`
 }
 
 // handshakeMagics contains data that is always included in the
@@ -80,11 +80,11 @@ func (m *handshakeMagics) write(w io.Writer) {
 }
 
 type PublicKeyJsonLog struct {
-	RSAHostKey     *PublicKey `json:"rsa_public_key,omitempty"`
-	DSAHostKey     *PublicKey `json:"dsa_public_key,omitempty"`
-	ECDSAHostKey   *PublicKey `json:"ecdsa_public_key,omitempty"`
-	Ed25519HostKey *PublicKey `json:"ed25519_public_key,omitempty"`
-	CertKeyHostKey *PublicKey `json:"certkey_public_key,omitempty"`
+	RSAHostKey     *PublicKey `json:"rsa_public_key"`
+	DSAHostKey     *PublicKey `json:"dsa_public_key"`
+	ECDSAHostKey   *PublicKey `json:"ecdsa_public_key"`
+	Ed25519HostKey *PublicKey `json:"ed25519_public_key"`
+	CertKeyHostKey *PublicKey `json:"certkey_public_key"`
 }
 
 func (pkLog *PublicKeyJsonLog) AddPublicKey(pubKey PublicKey) bool {
@@ -118,9 +118,9 @@ type ServerHostKeyJsonLog struct {
 	PublicKeyJsonLog
 	Raw          []byte `json:"raw"`
 	Algorithm    string `json:"algorithm"`
-	Fingerprint  string `json:"fingerprint_sha256,omitempty"`
-	TrailingData []byte `json:"trailing_data,omitempty"`
-	ParseError   string `json:"parse_error,omitempty"`
+	Fingerprint  string `json:"fingerprint_sha256"`
+	TrailingData []byte `json:"trailing_data"`
+	ParseError   string `json:"parse_error"`
 }
 
 func LogServerHostKey(sshRawKey []byte) *ServerHostKeyJsonLog {
@@ -177,9 +177,9 @@ type dhGroup struct {
 	JsonLog       dhGroupJsonLog
 }
 type dhGroupJsonLog struct {
-	Parameters      *ztoolsKeys.DHParams  `json:"dh_params,omitempty"`
-	ServerSignature *JsonSignature        `json:"server_signature,omitempty"`
-	ServerHostKey   *ServerHostKeyJsonLog `json:"server_host_key,omitempty"`
+	Parameters      *ztoolsKeys.DHParams  `json:"dh_params"`
+	ServerSignature *JsonSignature        `json:"server_signature"`
+	ServerHostKey   *ServerHostKeyJsonLog `json:"server_host_key"`
 }
 
 func (group *dhGroup) MarshalJSON() ([]byte, error) {
@@ -369,9 +369,9 @@ type ecdh struct {
 }
 
 type ecdhJsonLog struct {
-	Parameters      *ztoolsKeys.ECDHParams `json:"ecdh_params,omitempty"`
-	ServerSignature *JsonSignature         `json:"server_signature,omitempty"`
-	ServerHostKey   *ServerHostKeyJsonLog  `json:"server_host_key,omitempty"`
+	Parameters      *ztoolsKeys.ECDHParams `json:"ecdh_params"`
+	ServerSignature *JsonSignature         `json:"server_signature"`
+	ServerHostKey   *ServerHostKeyJsonLog  `json:"server_host_key"`
 }
 
 func (kex *ecdh) MarshalJSON() ([]byte, error) {
@@ -652,14 +652,14 @@ type curve25519sha256 struct {
 
 type curve25519sha256JsonLog struct {
 	Parameters      curve25519sha256JsonLogParameters `json:"curve25519_sha256_params"`
-	ServerSignature *JsonSignature                    `json:"server_signature,omitempty"`
-	ServerHostKey   *ServerHostKeyJsonLog             `json:"server_host_key,omitempty"`
+	ServerSignature *JsonSignature                    `json:"server_signature"`
+	ServerHostKey   *ServerHostKeyJsonLog             `json:"server_host_key"`
 }
 
 type curve25519sha256JsonLogParameters struct {
-	ClientPublic  []byte `json:"client_public,omitempty"`
-	ClientPrivate []byte `json:"client_private,omitempty"`
-	ServerPublic  []byte `json:"server_public,omitempty"`
+	ClientPublic  []byte `json:"client_public"`
+	ClientPrivate []byte `json:"client_private"`
+	ServerPublic  []byte `json:"server_public"`
 }
 
 func (kex *curve25519sha256) MarshalJSON() ([]byte, error) {
@@ -823,9 +823,9 @@ type dhGEXSHA struct {
 }
 
 type gexJsonLog struct {
-	Parameters      *ztoolsKeys.DHParams  `json:"dh_params,omitempty"`
-	ServerSignature *JsonSignature        `json:"server_signature,omitempty"`
-	ServerHostKey   *ServerHostKeyJsonLog `json:"server_host_key,omitempty"`
+	Parameters      *ztoolsKeys.DHParams  `json:"dh_params"`
+	ServerSignature *JsonSignature        `json:"server_signature"`
+	ServerHostKey   *ServerHostKeyJsonLog `json:"server_host_key"`
 }
 
 func (gex *dhGEXSHA) MarshalJSON() ([]byte, error) {

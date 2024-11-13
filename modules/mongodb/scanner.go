@@ -131,42 +131,42 @@ func getBuildInfoOpMsg() []byte {
 
 // BuildEnvironment_t holds build environment information returned by scan.
 type BuildEnvironment_t struct {
-	Distmod    string `bson:"distmod,omitempty" json:"dist_mod,omitempty"`
-	Distarch   string `bson:"distarch,omitempty" json:"dist_arch,omitempty"`
-	Cc         string `bson:"cc,omitempty" json:"cc,omitempty"`
-	CcFlags    string `bson:"ccflags,omitempty" json:"cc_flags,omitempty"`
-	Cxx        string `bson:"cxx,omitempty" json:"cxx,omitempty"`
-	CxxFlags   string `bson:"cxxflags,omitempty" json:"cxx_flags,omitempty"`
-	LinkFlags  string `bson:"linkflags,omitempty" json:"link_flags,omitempty"`
-	TargetArch string `bson:"target_arch,omitempty" json:"target_arch,omitempty"`
-	TargetOS   string `bson:"target_os,omitempty" json:"target_os,omitempty"`
+	Distmod    string `bson:"distmod" json:"dist_mod"`
+	Distarch   string `bson:"distarch" json:"dist_arch"`
+	Cc         string `bson:"cc" json:"cc"`
+	CcFlags    string `bson:"ccflags" json:"cc_flags"`
+	Cxx        string `bson:"cxx" json:"cxx"`
+	CxxFlags   string `bson:"cxxflags" json:"cxx_flags"`
+	LinkFlags  string `bson:"linkflags" json:"link_flags"`
+	TargetArch string `bson:"target_arch" json:"target_arch"`
+	TargetOS   string `bson:"target_os" json:"target_os"`
 }
 
 // BuildInfo_t holds the data returned by the the buildInfo query
 type BuildInfo_t struct {
-	Version           string             `bson:"version,omitempty" json:"version,omitempty"`
-	GitVersion        string             `bson:"gitVersion,omitempty" json:"git_version,omitempty"`
-	SysInfo           string             `bson:"sysInfo,omitempty" json:"sys_info,omitempty"`
-	LoaderFlags       string             `bson:"loaderFlags,omitempty" json:"loader_flags,omitempty"`
-	CompilerFlags     string             `bson:"compilerFlags,omitempty" json:"compiler_flags,omitempty"`
-	Allocator         string             `bson:"allocator,omitempty" json:"allocator,omitempty"`
-	Debug             bool               `bson:"debug,omitempty" json:"debug,omitempty"`
-	Bits              int32              `bson:"bits,omitempty" json:"bits,omitempty"`
-	MaxBsonObjectSize int32              `bson:"maxBsonObjectSize,omitempty" json:"max_bson_object_size,omitempty"`
-	JavascriptEngine  string             `bson:"javascriptEngine,omitempty" json:"javascript_engine,omitempty"`
-	StorageEngines    []string           `bson:"storageEngines,omitempty" json:"storage_engines,omitempty"`
-	BuildEnvironment  BuildEnvironment_t `bson:"buildEnvironment,omitempty" json:"build_environment,omitempty"`
+	Version           string             `bson:"version" json:"version"`
+	GitVersion        string             `bson:"gitVersion" json:"git_version"`
+	SysInfo           string             `bson:"sysInfo" json:"sys_info"`
+	LoaderFlags       string             `bson:"loaderFlags" json:"loader_flags"`
+	CompilerFlags     string             `bson:"compilerFlags" json:"compiler_flags"`
+	Allocator         string             `bson:"allocator" json:"allocator"`
+	Debug             bool               `bson:"debug" json:"debug"`
+	Bits              int32              `bson:"bits" json:"bits"`
+	MaxBsonObjectSize int32              `bson:"maxBsonObjectSize" json:"max_bson_object_size"`
+	JavascriptEngine  string             `bson:"javascriptEngine" json:"javascript_engine"`
+	StorageEngines    []string           `bson:"storageEngines" json:"storage_engines"`
+	BuildEnvironment  BuildEnvironment_t `bson:"buildEnvironment" json:"build_environment"`
 }
 
 // IsMaster_t holds the data returned by an isMaster query
 type IsMaster_t struct {
 	IsMaster                     bool  `bson:"ismaster" json:"is_master"`
-	MaxWireVersion               int32 `bson:"maxWireVersion,omitempty" json:"max_wire_version,omitempty"`
-	MinWireVersion               int32 `bson:"minWireVersion,omitempty" json:"min_wire_version,omitempty"`
-	MaxBsonObjectSize            int32 `bson:"maxBsonObjectSize,omitempty" json:"max_bson_object_size,omitempty"`
-	MaxWriteBatchSize            int32 `bson:"maxWriteBatchSize,omitempty" json:"max_write_batch_size,omitempty"`
-	LogicalSessionTimeoutMinutes int32 `bson:"logicalSessionTimeoutMinutes,omitempty" json:"logical_session_timeout_minutes,omitempty"`
-	MaxMessageSizeBytes          int32 `bson:"maxMessageSizeBytes,omitempty" json:"max_message_size_bytes,omitempty"`
+	MaxWireVersion               int32 `bson:"maxWireVersion" json:"max_wire_version"`
+	MinWireVersion               int32 `bson:"minWireVersion" json:"min_wire_version"`
+	MaxBsonObjectSize            int32 `bson:"maxBsonObjectSize" json:"max_bson_object_size"`
+	MaxWriteBatchSize            int32 `bson:"maxWriteBatchSize" json:"max_write_batch_size"`
+	LogicalSessionTimeoutMinutes int32 `bson:"logicalSessionTimeoutMinutes" json:"logical_session_timeout_minutes"`
+	MaxMessageSizeBytes          int32 `bson:"maxMessageSizeBytes" json:"max_message_size_bytes"`
 	ReadOnly                     bool  `bson:"readOnly" json:"read_only"`
 }
 
@@ -177,15 +177,15 @@ type DatabaseInfo_t struct {
 }
 
 type ListDatabases_t struct {
-	Databases []DatabaseInfo_t `bson:"databases,omitempty" json:"databases,omitempty"`
-	TotalSize int64            `bson:"totalSize,omitempty" json:"total_size,omitempty"`
+	Databases []DatabaseInfo_t `bson:"databases" json:"databases"`
+	TotalSize int64            `bson:"totalSize" json:"total_size"`
 }
 
 // Result holds the data returned by a scan
 type Result struct {
-	IsMaster     *IsMaster_t      `json:"is_master,omitempty"`
-	BuildInfo    *BuildInfo_t     `json:"build_info,omitempty"`
-	DatabaseInfo *ListDatabases_t `json:"database_info,omitempty"`
+	IsMaster     *IsMaster_t      `json:"is_master"`
+	BuildInfo    *BuildInfo_t     `json:"build_info"`
+	DatabaseInfo *ListDatabases_t `json:"database_info"`
 }
 
 // Init initializes the scanner

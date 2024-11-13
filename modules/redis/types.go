@@ -431,7 +431,7 @@ func (conn *Connection) GetTLSLog() *zgrab2.TLSLog {
 }
 
 type CustomResponse struct {
-	Command   string `json:"command,omitempty"`
-	Arguments string `json:"arguments,omitempty"`
-	Response  string `json:"response,omitempty"`
+	Command   string `json:"command"`
+	Arguments string `json:"arguments"`
+	Response  string `json:"response"`
 }

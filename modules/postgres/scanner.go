@@ -39,24 +39,24 @@ const (
 // https://raw.githubusercontent.com/nmap/nmap/master/nmap-service-probes uses the line number of the error response (e.g. StartupError["line"]) to infer the version number
 type Results struct {
 	// TLSLog is the standard TLS log for the first connection.
-	TLSLog *zgrab2.TLSLog `json:"tls,omitempty"`
+	TLSLog *zgrab2.TLSLog `json:"tls"`
 
 	// SupportedVersions is the string returned by the server in response
 	// to a StartupMessage with ProtocolVersion = 0.0.
-	SupportedVersions string `json:"supported_versions,omitempty"`
+	SupportedVersions string `json:"supported_versions"`
 
 	// ProtocolError is the string returned by the server in response to
 	// a StartupMessage with ProtocolVersion = 255.255.
-	ProtocolError *PostgresError `json:"protocol_error,omitempty"`
+	ProtocolError *PostgresError `json:"protocol_error"`
 
 	// StartupError is the error returned by the server in response to the
 	// StartupMessage with no user provided.
-	StartupError *PostgresError `json:"startup_error,omitempty"`
+	StartupError *PostgresError `json:"startup_error"`
 
 	// UserStartupError is the error returned by the server in response to
 	// the final StartupMessage when the user/database/application-name is
 	// set.
-	UserStartupError *PostgresError `json:"user_startup_error,omitempty"`
+	UserStartupError *PostgresError `json:"user_startup_error"`
 
 	// IsSSL is true if the client was able to set up an SSL connection
 	// with the server.
@@ -64,19 +64,19 @@ type Results struct {
 
 	// AuthenticationMode is the value of the R-type packet returned after
 	// the final StartupMessage.
-	AuthenticationMode *AuthenticationMode `json:"authentication_mode,omitempty"`
+	AuthenticationMode *AuthenticationMode `json:"authentication_mode"`
 
 	// ServerParameters is a map of the key/value pairs returned after the
 	// final StartupMessage.
-	ServerParameters *ServerParameters `json:"server_parameters,omitempty"`
+	ServerParameters *ServerParameters `json:"server_parameters"`
 
 	// BackendKeyData is the value of the 'K'-type packet returned by the
 	// server after the final StartupMessage.
-	BackendKeyData *BackendKeyData `json:"backend_key_data,omitempty" zgrab:"debug"`
+	BackendKeyData *BackendKeyData `json:"backend_key_data" zgrab:"debug"`
 
 	// TransactionStatus is the value of the 'Z'-type packet returned by
 	// the server after the final StartupMessage.
-	TransactionStatus string `json:"transaction_status,omitempty"`
+	TransactionStatus string `json:"transaction_status"`
 }
 
 // PostgresError is parsed the payload of an 'E'-type packet, mapping
@@ -110,7 +110,7 @@ type BackendKeyData struct {
 // AuthenticationMode abstracts the various 'R'-type packets.
 type AuthenticationMode struct {
 	Mode    string `json:"mode"`
-	Payload []byte `json:"payload,omitempty"`
+	Payload []byte `json:"payload"`
 }
 
 // Flags sets the module-specific flags that can be passed in from the

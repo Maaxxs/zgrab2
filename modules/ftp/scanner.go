@@ -24,23 +24,23 @@ import (
 // Identical to the original from zgrab, with the addition of TLSLog.
 type ScanResults struct {
 	// Banner is the initial data banner sent by the server.
-	Banner string `json:"banner,omitempty"`
+	Banner string `json:"banner"`
 
 	// AuthTLSResp is the response to the AUTH TLS command.
 	// Only present if the FTPAuthTLS flag is set.
-	AuthTLSResp string `json:"auth_tls,omitempty"`
+	AuthTLSResp string `json:"auth_tls"`
 
 	// AuthSSLResp is the response to the AUTH SSL command.
 	// Only present if the FTPAuthTLS flag is set and AUTH TLS failed.
-	AuthSSLResp string `json:"auth_ssl,omitempty"`
+	AuthSSLResp string `json:"auth_ssl"`
 
 	// ImplicitTLS is true if the connection is wrapped in TLS, as opposed
 	// to via AUTH TLS or AUTH SSL.
-	ImplicitTLS bool `json:"implicit_tls,omitempty"`
+	ImplicitTLS bool `json:"implicit_tls"`
 
 	// TLSLog is the standard shared TLS handshake log.
 	// Only present if the FTPAuthTLS flag is set.
-	TLSLog *zgrab2.TLSLog `json:"tls,omitempty"`
+	TLSLog *zgrab2.TLSLog `json:"tls"`
 }
 
 // Flags are the FTP-specific command-line flags. Taken from the original zgrab.

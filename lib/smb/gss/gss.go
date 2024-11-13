@@ -17,9 +17,9 @@ const GssStateRequestMic = 3
 
 type NegTokenInitData struct {
 	MechTypes    []asn1.ObjectIdentifier `asn1:"explicit,tag:0"`
-	ReqFlags     asn1.BitString          `asn1:"explicit,optional,omitempty,tag:1"`
-	MechToken    []byte                  `asn1:"explicit,optional,omitempty,tag:2"`
-	MechTokenMIC []byte                  `asn1:"explicit,optional,omitempty,tag:3"`
+	ReqFlags     asn1.BitString          `asn1:"explicit,optional,tag:1"`
+	MechToken    []byte                  `asn1:"explicit,optional,tag:2"`
+	MechTokenMIC []byte                  `asn1:"explicit,optional,tag:3"`
 }
 
 type NegTokenInit struct {
@@ -28,10 +28,10 @@ type NegTokenInit struct {
 }
 
 type NegTokenResp struct {
-	State         asn1.Enumerated       `asn1:"explicit,optional,omitempty,tag:0"`
-	SupportedMech asn1.ObjectIdentifier `asn1:"explicit,optional,omitempty,tag:1"`
-	ResponseToken []byte                `asn1:"explicit,optional,omitempty,tag:2"`
-	MechListMIC   []byte                `asn1:"explicit,optional,omitempty,tag:3"`
+	State         asn1.Enumerated       `asn1:"explicit,optional,tag:0"`
+	SupportedMech asn1.ObjectIdentifier `asn1:"explicit,optional,tag:1"`
+	ResponseToken []byte                `asn1:"explicit,optional,tag:2"`
+	MechListMIC   []byte                `asn1:"explicit,optional,tag:3"`
 }
 
 // gsswrapped used to force ASN1 encoding to include explicit sequence tags

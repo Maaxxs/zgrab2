@@ -16,52 +16,52 @@ type FoxLog struct {
 	Id uint32 `json:"id"`
 
 	// Hostname corresponds to the "hostName" field.
-	Hostname string `json:"hostname,omitempty"`
+	Hostname string `json:"hostname"`
 
 	// HostAddress corresponds to the "hostAddress" field.
-	HostAddress string `json:"host_address,omitempty"`
+	HostAddress string `json:"host_address"`
 
 	// AppName corresponds to the "app.name" field.
-	AppName string `json:"app_name,omitempty"`
+	AppName string `json:"app_name"`
 
 	// AppVersion corresponds to the "app.version" field.
-	AppVersion string `json:"app_version,omitempty"`
+	AppVersion string `json:"app_version"`
 
 	// VMName corresponds to the "vm.name" field.
-	VMName string `json:"vm_name,omitempty"`
+	VMName string `json:"vm_name"`
 
 	// VMVersion corresponds to the "vm.version" field.
-	VMVersion string `json:"vm_version,omitempty"`
+	VMVersion string `json:"vm_version"`
 
 	// OSName corresponds to the "os.name" field.
-	OSName string `json:"os_name,omitempty"`
+	OSName string `json:"os_name"`
 
 	// OSVersion corresponds to the "os.version" field.
-	OSVersion string `json:"os_version,omitempty"`
+	OSVersion string `json:"os_version"`
 
 	// StationName corresponds to the "station.name" field.
-	StationName string `json:"station_name,omitempty"`
+	StationName string `json:"station_name"`
 
 	// Language corresponds to the "lang" field.
-	Language string `json:"language,omitempty"`
+	Language string `json:"language"`
 
 	// TimeZone corresponds to the "timeZone" field (or, that portion of it before the first semicolon).
-	TimeZone string `json:"time_zone,omitempty"`
+	TimeZone string `json:"time_zone"`
 
 	// HostId corresponds to the "hostId" field.
-	HostId string `json:"host_id,omitempty"`
+	HostId string `json:"host_id"`
 
 	// VMUuid corresponds to the "vmUuid" field.
-	VMUuid string `json:"vm_uuid,omitempty"`
+	VMUuid string `json:"vm_uuid"`
 
 	// BrandId corresponds to the "brandId" field.
-	BrandId string `json:"brand_id,omitempty"`
+	BrandId string `json:"brand_id"`
 
 	// SysInfo corresponds to the "sysInfo" field.
-	SysInfo string `json:"sys_info,omitempty"`
+	SysInfo string `json:"sys_info"`
 
 	// AuthAgentType corresponds to the "authAgentTypeSpecs" field.
-	AuthAgentType string `json:"auth_agent_type,omitempty"`
+	AuthAgentType string `json:"auth_agent_type"`
 
-	TLSLog *zgrab2.TLSLog `json:"tls,omitempty"`
+	TLSLog *zgrab2.TLSLog `json:"tls"`
 }

@@ -35,16 +35,16 @@ import (
 // ScanResults instances are returned by the module's Scan function.
 type ScanResults struct {
 	// Banner is the string sent by the server immediately after connecting.
-	Banner string `json:"banner,omitempty"`
+	Banner string `json:"banner"`
 
 	// StartTLS is the server's response to the STARTTLS command, if it is sent.
-	StartTLS string `json:"starttls,omitempty"`
+	StartTLS string `json:"starttls"`
 
 	// CLOSE is the server's response to the CLOSE command, if it is sent.
-	CLOSE string `json:"close,omitempty"`
+	CLOSE string `json:"close"`
 
 	// TLSLog is the standard TLS log, if --starttls or --imaps is enabled.
-	TLSLog *zgrab2.TLSLog `json:"tls,omitempty"`
+	TLSLog *zgrab2.TLSLog `json:"tls"`
 }
 
 // Flags holds the command-line configuration for the IMAP scan module.

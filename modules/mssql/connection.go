@@ -460,17 +460,17 @@ func decodePreloginOptions(body []byte) (result *PreloginOptions, rest []byte, e
 // preloginOptionsJSON is an auxiliary struct that holds the output format of
 // the PreloginOptions
 type preloginOptionsJSON struct {
-	Version *ServerVersion `json:"version,omitempty"`
+	Version *ServerVersion `json:"version"`
 
-	Encryption *EncryptMode `json:"encrypt_mode,omitempty"`
-	Instance   string       `json:"instance,omitempty"`
-	ThreadID   *uint32      `json:"thread_id,omitempty"`
+	Encryption *EncryptMode `json:"encrypt_mode"`
+	Instance   string       `json:"instance"`
+	ThreadID   *uint32      `json:"thread_id"`
 	// Using a *uint8 to distinguish 0 from undefined
-	MARS            *uint8                      `json:"mars,omitempty"`
-	TraceID         []byte                      `json:"trace_id,omitempty"`
-	FedAuthRequired *uint8                      `json:"fed_auth_required,omitempty"`
-	Nonce           []byte                      `json:"nonce,omitempty"`
-	Unknown         []unknownPreloginOptionJSON `json:"unknown,omitempty"`
+	MARS            *uint8                      `json:"mars"`
+	TraceID         []byte                      `json:"trace_id"`
+	FedAuthRequired *uint8                      `json:"fed_auth_required"`
+	Nonce           []byte                      `json:"nonce"`
+	Unknown         []unknownPreloginOptionJSON `json:"unknown"`
 }
 
 // unknownPreloginOptionJSON holds the raw PRELOGIN token and value for unknown

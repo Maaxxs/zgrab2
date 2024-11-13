@@ -43,13 +43,13 @@ const (
 var ErrMissingFile = errors.New("http: no such file")
 
 type URLWrapper struct {
-	Scheme   string `json:"scheme,omitempty"`
-	Opaque   string `json:"opaque,omitempty"`
-	Host     string `json:"host,omitempty"`
-	Path     string `json:"path,omitempty"`
-	RawPath  string `json:"raw_path,omitempty"`
-	RawQuery string `json:"raw_query,omitempty"`
-	Fragment string `json:"fragment,omitempty"`
+	Scheme   string `json:"scheme"`
+	Opaque   string `json:"opaque"`
+	Host     string `json:"host"`
+	Path     string `json:"path"`
+	RawPath  string `json:"raw_path"`
+	RawQuery string `json:"raw_query"`
+	Fragment string `json:"fragment"`
 }
 
 // ProtocolError represents an HTTP protocol error.
@@ -113,7 +113,7 @@ var reqWriteExcludeHeader = map[string]bool{
 type Request struct {
 	// Method specifies the HTTP method (GET, POST, PUT, etc.).
 	// For client requests an empty string means GET.
-	Method string `json:"method,omitempty"`
+	Method string `json:"method"`
 
 	// URL specifies either the URI being requested (for server
 	// requests) or the URL to access (for client requests).
@@ -167,7 +167,7 @@ type Request struct {
 	// and Connection are automatically written when needed and
 	// values in Header may be ignored. See the documentation
 	// for the Request.Write method.
-	Header Header `json:"headers,omitempty"`
+	Header Header `json:"headers"`
 
 	// Body is the request's body.
 	//
@@ -179,7 +179,7 @@ type Request struct {
 	// but will return EOF immediately when no body is present.
 	// The Server will close the request body. The ServeHTTP
 	// Handler does not need to.
-	Body io.ReadCloser `json:"body,omitempty"`
+	Body io.ReadCloser `json:"body"`
 
 	// GetBody defines an optional func to return a new copy of
 	// Body. It is used for client requests when a redirect requires
@@ -195,14 +195,14 @@ type Request struct {
 	// be read from Body.
 	// For client requests, a value of 0 with a non-nil Body is
 	// also treated as unknown.
-	ContentLength int64 `json:"content_length,omitempty"`
+	ContentLength int64 `json:"content_length"`
 
 	// TransferEncoding lists the transfer encodings from outermost to
 	// innermost. An empty list denotes the "identity" encoding.
 	// TransferEncoding can usually be ignored; chunked encoding is
 	// automatically added and removed as necessary when sending and
 	// receiving requests.
-	TransferEncoding []string `json:"transfer_encoding,omitempty"`
+	TransferEncoding []string `json:"transfer_encoding"`
 
 	// Close indicates whether to close the connection after
 	// replying to this request (for servers) or after sending this
@@ -214,7 +214,7 @@ type Request struct {
 	// For client requests, setting this field prevents re-use of
 	// TCP connections between requests to the same hosts, as if
 	// Transport.DisableKeepAlives were set.
-	Close bool `json:"close,omitempty"`
+	Close bool `json:"close"`
 
 	// For server requests Host specifies the host on which the
 	// URL is sought. Per RFC 2616, this is either the value of
@@ -228,25 +228,25 @@ type Request struct {
 	// header to send. If empty, the Request.Write method uses
 	// the value of URL.Host. Host may contain an international
 	// domain name.
-	Host string `json:"host,omitempty"`
+	Host string `json:"host"`
 
 	// Form contains the parsed form data, including both the URL
 	// field's query parameters and the POST or PUT form data.
 	// This field is only available after ParseForm is called.
 	// The HTTP client ignores Form and uses Body instead.
-	Form url.Values `json:"form,omitempty"`
+	Form url.Values `json:"form"`
 
 	// PostForm contains the parsed form data from POST, PATCH,
 	// or PUT body parameters.
 	//
 	// This field is only available after ParseForm is called.
 	// The HTTP client ignores PostForm and uses Body instead.
-	PostForm url.Values `json:"post_form,omitempty"`
+	PostForm url.Values `json:"post_form"`
 
 	// MultipartForm is the parsed multipart form, including file uploads.
 	// This field is only available after ParseMultipartForm is called.
 	// The HTTP client ignores MultipartForm and uses Body instead.
-	MultipartForm *multipart.Form `json:"multipart_form,omitempty"`
+	MultipartForm *multipart.Form `json:"multipart_form"`
 
 	// Trailer specifies additional headers that are sent after the request
 	// body.
@@ -266,7 +266,7 @@ type Request struct {
 	// not mutate Trailer.
 	//
 	// Few HTTP clients, servers, or proxies support HTTP trailers.
-	Trailer Header `json:"trailers,omitempty"`
+	Trailer Header `json:"trailers"`
 
 	// RemoteAddr allows HTTP servers and other software to record
 	// the network address that sent the request, usually for
@@ -290,10 +290,10 @@ type Request struct {
 	// TLS-enabled connections before invoking a handler;
 	// otherwise it leaves the field nil.
 	// This field is ignored by the HTTP client.
-	TLS *tls.ConnectionState `json:"tls,omitempty"`
+	TLS *tls.ConnectionState `json:"tls"`
 
 	// Everywhere else, this is "tls". Conains the logs from the configured zgrab2 TLS scan (TLS handshake, heartbleed check, etc)
-	TLSLog *zgrab2.TLSLog `json:"tls_log,omitempty"`
+	TLSLog *zgrab2.TLSLog `json:"tls_log"`
 
 	// Cancel is an optional channel whose closure indicates that the client
 	// request should be regarded as canceled. Not all implementations of
@@ -321,7 +321,7 @@ type Request struct {
 func (request *Request) MarshalJSON() ([]byte, error) {
 	type Alias Request
 	return json.Marshal(&struct {
-		URL URLWrapper `json:"url,omitempty"`
+		URL URLWrapper `json:"url"`
 		*Alias
 	}{
 		URL: URLWrapper{

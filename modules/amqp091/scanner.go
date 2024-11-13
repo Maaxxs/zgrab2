@@ -87,9 +87,9 @@ type Result struct {
 
 	AuthSuccess bool `json:"auth_success"`
 
-	Tune *connectionTune `json:"tune,omitempty"`
+	Tune *connectionTune `json:"tune"`
 
-	TLSLog *zgrab2.TLSLog `json:"tls,omitempty"`
+	TLSLog *zgrab2.TLSLog `json:"tls"`
 }
 
 // RegisterModule registers the zgrab2 module.

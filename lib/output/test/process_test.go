@@ -147,38 +147,38 @@ type Flat struct {
 	PtrBytesValue  *[]byte    `json:"ptr_bytes_value"`
 	PtrArrayValue  *[5]string `json:"ptr_array_value"`
 
-	DebugStringValue    string      `json:"debug_string_value,omitempty" zgrab:"debug"`
-	DebugTrueValue      bool        `json:"debug_true_value,omitempty" zgrab:"debug"`
-	DebugFalseValue     bool        `json:"debug_false_value,omitempty" zgrab:"debug"`
-	DebugIntValue       int         `json:"debug_int_value,omitempty" zgrab:"debug"`
-	DebugBytesValue     []byte      `json:"debug_bytes_value,omitempty" zgrab:"debug"`
-	DebugArrayValue     [5]string   `json:"debug_array_value,omitempty" zgrab:"debug"`
-	DebugInterfaceValue interface{} `json:"debug_interface_value,omitempty" zgrab:"debug"`
+	DebugStringValue    string      `json:"debug_string_value" zgrab:"debug"`
+	DebugTrueValue      bool        `json:"debug_true_value" zgrab:"debug"`
+	DebugFalseValue     bool        `json:"debug_false_value" zgrab:"debug"`
+	DebugIntValue       int         `json:"debug_int_value" zgrab:"debug"`
+	DebugBytesValue     []byte      `json:"debug_bytes_value" zgrab:"debug"`
+	DebugArrayValue     [5]string   `json:"debug_array_value" zgrab:"debug"`
+	DebugInterfaceValue interface{} `json:"debug_interface_value" zgrab:"debug"`
 
-	DebugPtrStringValue *string    `json:"debug_ptr_string_value,omitempty" zgrab:"debug"`
-	DebugPtrTrueValue   *bool      `json:"debug_ptr_true_value,omitempty" zgrab:"debug"`
-	DebugPtrFalseValue  *bool      `json:"debug_ptr_false_value,omitempty" zgrab:"debug"`
-	DebugPtrIntValue    *int       `json:"debug_ptr_int_value,omitempty" zgrab:"debug"`
-	DebugPtrBytesValue  *[]byte    `json:"debug_ptr_bytes_value,omitempty" zgrab:"debug"`
-	DebugPtrArrayValue  *[5]string `json:"debug_ptr_array_value,omitempty" zgrab:"debug"`
+	DebugPtrStringValue *string    `json:"debug_ptr_string_value" zgrab:"debug"`
+	DebugPtrTrueValue   *bool      `json:"debug_ptr_true_value" zgrab:"debug"`
+	DebugPtrFalseValue  *bool      `json:"debug_ptr_false_value" zgrab:"debug"`
+	DebugPtrIntValue    *int       `json:"debug_ptr_int_value" zgrab:"debug"`
+	DebugPtrBytesValue  *[]byte    `json:"debug_ptr_bytes_value" zgrab:"debug"`
+	DebugPtrArrayValue  *[5]string `json:"debug_ptr_array_value" zgrab:"debug"`
 }
 
 type StrippedFlat struct {
 	*Flat
-	OmitDebugStringValue    string      `json:"debug_string_value,omitempty" zgrab:"debug"`
-	OmitDebugTrueValue      bool        `json:"debug_true_value,omitempty" zgrab:"debug"`
-	OmitDebugFalseValue     bool        `json:"debug_false_value,omitempty" zgrab:"debug"`
-	OmitDebugIntValue       int         `json:"debug_int_value,omitempty" zgrab:"debug"`
-	OmitDebugBytesValue     []byte      `json:"debug_bytes_value,omitempty" zgrab:"debug"`
-	OmitDebugArrayValue     [5]string   `json:"debug_array_value,omitempty" zgrab:"debug"`
-	OmitDebugInterfaceValue interface{} `json:"debug_interface_value,omitempty" zgrab:"debug"`
+	OmitDebugStringValue    string      `json:"debug_string_value" zgrab:"debug"`
+	OmitDebugTrueValue      bool        `json:"debug_true_value" zgrab:"debug"`
+	OmitDebugFalseValue     bool        `json:"debug_false_value" zgrab:"debug"`
+	OmitDebugIntValue       int         `json:"debug_int_value" zgrab:"debug"`
+	OmitDebugBytesValue     []byte      `json:"debug_bytes_value" zgrab:"debug"`
+	OmitDebugArrayValue     [5]string   `json:"debug_array_value" zgrab:"debug"`
+	OmitDebugInterfaceValue interface{} `json:"debug_interface_value" zgrab:"debug"`
 
-	OmitDebugPtrStringValue *string    `json:"debug_ptr_string_value,omitempty" zgrab:"debug"`
-	OmitDebugPtrTrueValue   *bool      `json:"debug_ptr_true_value,omitempty" zgrab:"debug"`
-	OmitDebugPtrFalseValue  *bool      `json:"debug_ptr_false_value,omitempty" zgrab:"debug"`
-	OmitDebugPtrIntValue    *int       `json:"debug_ptr_int_value,omitempty" zgrab:"debug"`
-	OmitDebugPtrBytesValue  *[]byte    `json:"debug_ptr_bytes_value,omitempty" zgrab:"debug"`
-	OmitDebugPtrArrayValue  *[5]string `json:"debug_ptr_array_value,omitempty" zgrab:"debug"`
+	OmitDebugPtrStringValue *string    `json:"debug_ptr_string_value" zgrab:"debug"`
+	OmitDebugPtrTrueValue   *bool      `json:"debug_ptr_true_value" zgrab:"debug"`
+	OmitDebugPtrFalseValue  *bool      `json:"debug_ptr_false_value" zgrab:"debug"`
+	OmitDebugPtrIntValue    *int       `json:"debug_ptr_int_value" zgrab:"debug"`
+	OmitDebugPtrBytesValue  *[]byte    `json:"debug_ptr_bytes_value" zgrab:"debug"`
+	OmitDebugPtrArrayValue  *[5]string `json:"debug_ptr_array_value" zgrab:"debug"`
 }
 
 func (flat *Flat) GetStripped() *StrippedFlat {
@@ -245,32 +245,32 @@ func getFlat(id string) *Flat {
 
 // An arbitrarily deep struct with debug and non-debug fields
 type Deep struct {
-	ID      string `json:"id,omitempty"`
-	DebugID string `json:"debug_id,omitempty" zgrab:"debug"`
+	ID      string `json:"id"`
+	DebugID string `json:"debug_id" zgrab:"debug"`
 
 	Child      *Deep `json:"child"`
-	DebugChild *Deep `json:"debug_child,omitempty" zgrab:"debug"`
+	DebugChild *Deep `json:"debug_child" zgrab:"debug"`
 
-	Flat    Flat  `json:"flat,omitempty"`
-	PtrFlat *Flat `json:"ptr_flat,omitempty"`
+	Flat    Flat  `json:"flat"`
+	PtrFlat *Flat `json:"ptr_flat"`
 
-	DebugFlat    Flat  `json:"debug_flat,omitempty" zgrab:"debug"`
-	DebugPtrFlat *Flat `json:"debug_ptr_flat,omitempty" zgrab:"debug"`
+	DebugFlat    Flat  `json:"debug_flat" zgrab:"debug"`
+	DebugPtrFlat *Flat `json:"debug_ptr_flat" zgrab:"debug"`
 }
 
 type StrippedDeep struct {
 	*Deep
 
-	OmitDebugID string `json:"debug_id,omitempty" zgrab:"debug"`
+	OmitDebugID string `json:"debug_id" zgrab:"debug"`
 
 	OverrideChild  *StrippedDeep `json:"child"`
-	OmitDebugChild *StrippedDeep `json:"debug_child,omitempty" zgrab:"debug"`
+	OmitDebugChild *StrippedDeep `json:"debug_child" zgrab:"debug"`
 
-	OverrideFlat    StrippedFlat  `json:"flat,omitempty"`
-	OverridePtrFlat *StrippedFlat `json:"ptr_flat,omitempty"`
+	OverrideFlat    StrippedFlat  `json:"flat"`
+	OverridePtrFlat *StrippedFlat `json:"ptr_flat"`
 
 	OverrideDebugFlat Flat          `json:"debug_flat" zgrab:"debug"`
-	OmitDebugPtrFlat  *StrippedFlat `json:"debug_ptr_flat,omitempty" zgrab:"debug"`
+	OmitDebugPtrFlat  *StrippedFlat `json:"debug_ptr_flat" zgrab:"debug"`
 }
 
 func (deep *Deep) GetStripped() *StrippedDeep {
@@ -313,28 +313,28 @@ func getDeep(id string, depth int) *Deep {
 // An arbitrarily deep struct, with its children stored as interface{} fields.
 type DeepIface struct {
 	ID         string      `json:"id"`
-	DebugID    string      `json:"debug_id,omitempty" zgrab:"debug"`
+	DebugID    string      `json:"debug_id" zgrab:"debug"`
 	Child      interface{} `json:"child"`
-	DebugChild interface{} `json:"debug_child,omitempty" zgrab:"debug"`
+	DebugChild interface{} `json:"debug_child" zgrab:"debug"`
 
-	Flat    Flat  `json:"flat,omitempty"`
-	PtrFlat *Flat `json:"ptr_flat,omitempty"`
+	Flat    Flat  `json:"flat"`
+	PtrFlat *Flat `json:"ptr_flat"`
 
-	DebugFlat    Flat  `json:"debug_flat,omitempty" zgrab:"debug"`
-	DebugPtrFlat *Flat `json:"debug_ptr_flat,omitempty" zgrab:"debug"`
+	DebugFlat    Flat  `json:"debug_flat" zgrab:"debug"`
+	DebugPtrFlat *Flat `json:"debug_ptr_flat" zgrab:"debug"`
 }
 
 type StrippedDeepIface struct {
 	*DeepIface
-	OmitDebugID    string      `json:"debug_id,omitempty" zgrab:"debug"`
+	OmitDebugID    string      `json:"debug_id" zgrab:"debug"`
 	OverrideChild  interface{} `json:"child"`
-	OmitDebugChild interface{} `json:"debug_child,omitempty" zgrab:"debug"`
+	OmitDebugChild interface{} `json:"debug_child" zgrab:"debug"`
 
-	OverrideFlat    StrippedFlat  `json:"flat,omitempty"`
-	OverridePtrFlat *StrippedFlat `json:"ptr_flat,omitempty"`
+	OverrideFlat    StrippedFlat  `json:"flat"`
+	OverridePtrFlat *StrippedFlat `json:"ptr_flat"`
 
-	OverrideDebugFlat Flat          `json:"debug_flat,omitempty" zgrab:"debug"`
-	OmitDebugPtrFlat  *StrippedFlat `json:"debug_ptr_flat,omitempty" zgrab:"debug"`
+	OverrideDebugFlat Flat          `json:"debug_flat" zgrab:"debug"`
+	OmitDebugPtrFlat  *StrippedFlat `json:"debug_ptr_flat" zgrab:"debug"`
 }
 
 func (deep *DeepIface) GetStripped() *StrippedDeepIface {
@@ -374,30 +374,30 @@ func getDeepIface(id string, depth int) *DeepIface {
 // An arbitrarily deep struct, with its children stored in a slice.
 type DeepSlice struct {
 	ID      string `json:"id"`
-	DebugID string `json:"debug_id,omitempty" zgrab:"debug"`
+	DebugID string `json:"debug_id" zgrab:"debug"`
 
 	Children      []DeepSlice `json:"children"`
-	DebugChildren []DeepSlice `json:"debug_children,omitempty" zgrab:"debug"`
+	DebugChildren []DeepSlice `json:"debug_children" zgrab:"debug"`
 
-	Flat    Flat  `json:"flat,omitempty"`
-	PtrFlat *Flat `json:"ptr_flat,omitempty"`
+	Flat    Flat  `json:"flat"`
+	PtrFlat *Flat `json:"ptr_flat"`
 
-	DebugFlat    Flat  `json:"debug_flat,omitempty" zgrab:"debug"`
-	DebugPtrFlat *Flat `json:"debug_ptr_flat,omitempty" zgrab:"debug"`
+	DebugFlat    Flat  `json:"debug_flat" zgrab:"debug"`
+	DebugPtrFlat *Flat `json:"debug_ptr_flat" zgrab:"debug"`
 }
 
 type StrippedDeepSlice struct {
 	*DeepSlice
-	OmitDebugID string `json:"debug_id,omitempty" zgrab:"debug"`
+	OmitDebugID string `json:"debug_id" zgrab:"debug"`
 
 	OverrideChildren  []StrippedDeepSlice `json:"children"`
-	OmitDebugChildren []StrippedDeepSlice `json:"debug_children,omitempty" zgrab:"debug"`
+	OmitDebugChildren []StrippedDeepSlice `json:"debug_children" zgrab:"debug"`
 
-	OverrideFlat    StrippedFlat  `json:"flat,omitempty"`
-	OverridePtrFlat *StrippedFlat `json:"ptr_flat,omitempty"`
+	OverrideFlat    StrippedFlat  `json:"flat"`
+	OverridePtrFlat *StrippedFlat `json:"ptr_flat"`
 
-	OverrideDebugFlat Flat  `json:"debug_flat,omitempty" zgrab:"debug"`
-	OmitDebugPtrFlat  *Flat `json:"debug_ptr_flat,omitempty" zgrab:"debug"`
+	OverrideDebugFlat Flat  `json:"debug_flat" zgrab:"debug"`
+	OmitDebugPtrFlat  *Flat `json:"debug_ptr_flat" zgrab:"debug"`
 }
 
 func (deep *DeepSlice) GetStripped() *StrippedDeepSlice {
@@ -440,30 +440,30 @@ func getDeepSlice(id string, depth int) *DeepSlice {
 // An arbitrarily deep struct, with its children stored in an array of pointers.
 type DeepArray struct {
 	ID      string `json:"id"`
-	DebugID string `json:"debug_id,omitempty" zgrab:"debug"`
+	DebugID string `json:"debug_id" zgrab:"debug"`
 
 	Children      [1]*DeepArray `json:"children"`
-	DebugChildren [1]*DeepArray `json:"debug_children,omitempty" zgrab:"debug"`
+	DebugChildren [1]*DeepArray `json:"debug_children" zgrab:"debug"`
 
-	Flat    Flat  `json:"flat,omitempty"`
-	PtrFlat *Flat `json:"ptr_flat,omitempty"`
+	Flat    Flat  `json:"flat"`
+	PtrFlat *Flat `json:"ptr_flat"`
 
-	DebugFlat    Flat  `json:"debug_flat,omitempty" zgrab:"debug"`
-	DebugPtrFlat *Flat `json:"debug_ptr_flat,omitempty" zgrab:"debug"`
+	DebugFlat    Flat  `json:"debug_flat" zgrab:"debug"`
+	DebugPtrFlat *Flat `json:"debug_ptr_flat" zgrab:"debug"`
 }
 
 type StrippedDeepArray struct {
 	*DeepArray
-	OmitDebugID string `json:"debug_id,omitempty" zgrab:"debug"`
+	OmitDebugID string `json:"debug_id" zgrab:"debug"`
 
 	OverrideChildren  [1]*StrippedDeepArray `json:"children"`
-	OmitDebugChildren [1]*StrippedDeepArray `json:"debug_children,omitempty" zgrab:"debug"`
+	OmitDebugChildren [1]*StrippedDeepArray `json:"debug_children" zgrab:"debug"`
 
-	OverrideFlat    StrippedFlat  `json:"flat,omitempty"`
-	OverridePtrFlat *StrippedFlat `json:"ptr_flat,omitempty"`
+	OverrideFlat    StrippedFlat  `json:"flat"`
+	OverridePtrFlat *StrippedFlat `json:"ptr_flat"`
 
-	OverrideDebugFlat Flat          `json:"debug_flat,omitempty" zgrab:"debug"`
-	OmitDebugPtrFlat  *StrippedFlat `json:"debug_ptr_flat,omitempty" zgrab:"debug"`
+	OverrideDebugFlat Flat          `json:"debug_flat" zgrab:"debug"`
+	OmitDebugPtrFlat  *StrippedFlat `json:"debug_ptr_flat" zgrab:"debug"`
 }
 
 func (deep *DeepArray) GetStripped() *StrippedDeepArray {
@@ -503,30 +503,30 @@ func getDeepArray(id string, depth int) *DeepArray {
 // An arbitrarily deep struct, with its children stored in a slice of interface{}s.
 type DeepIfaceSlice struct {
 	ID      string `json:"id"`
-	DebugID string `json:"debug_id,omitempty" zgrab:"debug"`
+	DebugID string `json:"debug_id" zgrab:"debug"`
 
 	Children      []interface{} `json:"children"`
-	DebugChildren []interface{} `json:"debug_children,omitempty" zgrab:"debug"`
+	DebugChildren []interface{} `json:"debug_children" zgrab:"debug"`
 
-	Flat    Flat  `json:"flat,omitempty"`
-	PtrFlat *Flat `json:"ptr_flat,omitempty"`
+	Flat    Flat  `json:"flat"`
+	PtrFlat *Flat `json:"ptr_flat"`
 
-	DebugFlat    Flat  `json:"debug_flat,omitempty" zgrab:"debug"`
-	DebugPtrFlat *Flat `json:"debug_ptr_flat,omitempty" zgrab:"debug"`
+	DebugFlat    Flat  `json:"debug_flat" zgrab:"debug"`
+	DebugPtrFlat *Flat `json:"debug_ptr_flat" zgrab:"debug"`
 }
 
 type StrippedDeepIfaceSlice struct {
 	*DeepIfaceSlice
-	OmitDebugID string `json:"debug_id,omitempty" zgrab:"debug"`
+	OmitDebugID string `json:"debug_id" zgrab:"debug"`
 
 	OverrideChildren  []interface{} `json:"children"`
-	OmitDebugChildren []interface{} `json:"debug_children,omitempty" zgrab:"debug"`
+	OmitDebugChildren []interface{} `json:"debug_children" zgrab:"debug"`
 
-	OverrideFlat    StrippedFlat  `json:"flat,omitempty"`
-	OverridePtrFlat *StrippedFlat `json:"ptr_flat,omitempty"`
+	OverrideFlat    StrippedFlat  `json:"flat"`
+	OverridePtrFlat *StrippedFlat `json:"ptr_flat"`
 
-	OverrideDebugFlat Flat          `json:"debug_flat,omitempty" zgrab:"debug"`
-	OmitDebugPtrFlat  *StrippedFlat `json:"debug_ptr_flat,omitempty" zgrab:"debug"`
+	OverrideDebugFlat Flat          `json:"debug_flat" zgrab:"debug"`
+	OmitDebugPtrFlat  *StrippedFlat `json:"debug_ptr_flat" zgrab:"debug"`
 }
 
 func (deep *DeepIfaceSlice) GetStripped() *StrippedDeepIfaceSlice {
@@ -577,30 +577,30 @@ func getDeepIfaceSlice(id string, depth int) *DeepIfaceSlice {
 // An arbitrarily deep struct, with its children stored in an array of interface{}s
 type DeepIfaceArray struct {
 	ID      string `json:"id"`
-	DebugID string `json:"debug_id,omitempty" zgrab:"debug"`
+	DebugID string `json:"debug_id" zgrab:"debug"`
 
 	Children      [2]interface{} `json:"children"`
-	DebugChildren [2]interface{} `json:"debug_children,omitempty" zgrab:"debug"`
+	DebugChildren [2]interface{} `json:"debug_children" zgrab:"debug"`
 
-	Flat    Flat  `json:"flat,omitempty"`
-	PtrFlat *Flat `json:"ptr_flat,omitempty"`
+	Flat    Flat  `json:"flat"`
+	PtrFlat *Flat `json:"ptr_flat"`
 
-	DebugFlat    Flat  `json:"debug_flat,omitempty" zgrab:"debug"`
-	DebugPtrFlat *Flat `json:"debug_ptr_flat,omitempty" zgrab:"debug"`
+	DebugFlat    Flat  `json:"debug_flat" zgrab:"debug"`
+	DebugPtrFlat *Flat `json:"debug_ptr_flat" zgrab:"debug"`
 }
 
 type StrippedDeepIfaceArray struct {
 	*DeepIfaceArray
-	OmitDebugID string `json:"debug_id,omitempty" zgrab:"debug"`
+	OmitDebugID string `json:"debug_id" zgrab:"debug"`
 
 	OverrideChildren  [2]interface{} `json:"children"`
-	OmitDebugChildren [2]interface{} `json:"debug_children,omitempty" zgrab:"debug"`
+	OmitDebugChildren [2]interface{} `json:"debug_children" zgrab:"debug"`
 
-	OverrideFlat    StrippedFlat  `json:"flat,omitempty"`
-	OverridePtrFlat *StrippedFlat `json:"ptr_flat,omitempty"`
+	OverrideFlat    StrippedFlat  `json:"flat"`
+	OverridePtrFlat *StrippedFlat `json:"ptr_flat"`
 
-	OverrideDebugFlat Flat          `json:"debug_flat,omitempty" zgrab:"debug"`
-	OmitDebugPtrFlat  *StrippedFlat `json:"debug_ptr_flat,omitempty" zgrab:"debug"`
+	OverrideDebugFlat Flat          `json:"debug_flat" zgrab:"debug"`
+	OmitDebugPtrFlat  *StrippedFlat `json:"debug_ptr_flat" zgrab:"debug"`
 }
 
 func (deep *DeepIfaceArray) GetStripped() *StrippedDeepIfaceArray {
@@ -645,31 +645,31 @@ func getDeepIfaceArray(id string, depth int) *DeepIfaceArray {
 // A wrapper around a Deep, with field names prefixed with anon0 so that it can
 // be used as an anonymous member struct.
 type DeepAnon0 struct {
-	Anon0ID      string `json:"anon0_id,omitempty"`
-	DebugAnon0ID string `json:"debug_anon0_id,omitempty" zgrab:"debug"`
+	Anon0ID      string `json:"anon0_id"`
+	DebugAnon0ID string `json:"debug_anon0_id" zgrab:"debug"`
 
-	Anon0      Deep `json:"anon0,omitempty"`
-	DebugAnon0 Deep `json:"debug_anon0,omitempty" zgrab:"debug"`
+	Anon0      Deep `json:"anon0"`
+	DebugAnon0 Deep `json:"debug_anon0" zgrab:"debug"`
 
-	Anon0Flat    Flat  `json:"anon0_flat,omitempty"`
-	PtrAnon0Flat *Flat `json:"ptr_anon0_flat,omitempty"`
+	Anon0Flat    Flat  `json:"anon0_flat"`
+	PtrAnon0Flat *Flat `json:"ptr_anon0_flat"`
 
-	DebugAnon0Flat    Flat  `json:"debug_anon0_flat,omitempty" zgrab:"debug"`
-	DebugPtrAnon0Flat *Flat `json:"debug_ptr_anon0_flat,omitempty" zgrab:"debug"`
+	DebugAnon0Flat    Flat  `json:"debug_anon0_flat" zgrab:"debug"`
+	DebugPtrAnon0Flat *Flat `json:"debug_ptr_anon0_flat" zgrab:"debug"`
 }
 
 type StrippedDeepAnon0 struct {
 	*DeepAnon0
-	OmitDebugAnon0ID string `json:"debug_anon0_id,omitempty" zgrab:"debug"`
+	OmitDebugAnon0ID string `json:"debug_anon0_id" zgrab:"debug"`
 
-	OverrideAnon0      StrippedDeep `json:"anon0,omitempty"`
-	OverrideDebugAnon0 Deep         `json:"debug_anon0,omitempty" zgrab:"debug"`
+	OverrideAnon0      StrippedDeep `json:"anon0"`
+	OverrideDebugAnon0 Deep         `json:"debug_anon0" zgrab:"debug"`
 
-	OverrideAnon0Flat    StrippedFlat  `json:"anon0_flat,omitempty"`
-	OverridePtrAnon0Flat *StrippedFlat `json:"ptr_anon0_flat,omitempty"`
+	OverrideAnon0Flat    StrippedFlat  `json:"anon0_flat"`
+	OverridePtrAnon0Flat *StrippedFlat `json:"ptr_anon0_flat"`
 
 	OverrideDebugAnon0Flat Flat  `json:"debug_anon0_flat" zgrab:"debug"`
-	OmitDebugPtrAnon0Flat  *Flat `json:"debug_ptr_anon0_flat,omitempty" zgrab:"debug"`
+	OmitDebugPtrAnon0Flat  *Flat `json:"debug_ptr_anon0_flat" zgrab:"debug"`
 }
 
 func (deep *DeepAnon0) GetStripped() *StrippedDeepAnon0 {
@@ -692,30 +692,30 @@ func (deep *DeepAnon0) Stripped() string {
 // be used as an anonymous member struct.
 type DeepAnon1 struct {
 	Anon1ID      string `json:"anon1_id"`
-	DebugAnon1ID string `json:"debug_anon1_id,omitempty" zgrab:"debug"`
+	DebugAnon1ID string `json:"debug_anon1_id" zgrab:"debug"`
 
 	Anon1      Deep `json:"anon1"`
-	DebugAnon1 Deep `json:"debug_anon1,omitempty" zgrab:"debug"`
+	DebugAnon1 Deep `json:"debug_anon1" zgrab:"debug"`
 
-	Anon1Flat    Flat  `json:"anon1_flat,omitempty"`
-	PtrAnon1Flat *Flat `json:"ptr_anon1_flat,omitempty"`
+	Anon1Flat    Flat  `json:"anon1_flat"`
+	PtrAnon1Flat *Flat `json:"ptr_anon1_flat"`
 
-	DebugAnon1Flat    Flat  `json:"debug_anon1_flat,omitempty" zgrab:"debug"`
-	DebugPtrAnon1Flat *Flat `json:"debug_ptr_anon1_flat,omitempty" zgrab:"debug"`
+	DebugAnon1Flat    Flat  `json:"debug_anon1_flat" zgrab:"debug"`
+	DebugPtrAnon1Flat *Flat `json:"debug_ptr_anon1_flat" zgrab:"debug"`
 }
 
 type StrippedDeepAnon1 struct {
 	*DeepAnon1
-	OmitDebugAnon1ID string `json:"debug_anon1_id,omitempty" zgrab:"debug"`
+	OmitDebugAnon1ID string `json:"debug_anon1_id" zgrab:"debug"`
 
-	OverrideAnon1      StrippedDeep `json:"anon1,omitempty"`
-	OverrideDebugAnon1 Deep         `json:"debug_anon1,omitempty" zgrab:"debug"`
+	OverrideAnon1      StrippedDeep `json:"anon1"`
+	OverrideDebugAnon1 Deep         `json:"debug_anon1" zgrab:"debug"`
 
-	OverrideAnon1Flat    StrippedFlat  `json:"anon1_flat,omitempty"`
-	OverridePtrAnon1Flat *StrippedFlat `json:"ptr_anon1_flat,omitempty"`
+	OverrideAnon1Flat    StrippedFlat  `json:"anon1_flat"`
+	OverridePtrAnon1Flat *StrippedFlat `json:"ptr_anon1_flat"`
 
 	OverrideDebugAnon1Flat Flat  `json:"debug_anon1_flat" zgrab:"debug"`
-	OmitDebugPtrAnon1Flat  *Flat `json:"debug_ptr_anon1_flat,omitempty" zgrab:"debug"`
+	OmitDebugPtrAnon1Flat  *Flat `json:"debug_ptr_anon1_flat" zgrab:"debug"`
 }
 
 func (deep *DeepAnon1) GetStripped() *StrippedDeepAnon1 {
@@ -740,15 +740,15 @@ type DeepAnon struct {
 	*DeepAnon1
 
 	ID         string    `json:"id"`
-	DebugID    string    `json:"debug_id,omitempty" zgrab:"debug"`
-	Child      *DeepAnon `json:"child,omitempty"`
-	DebugChild *DeepAnon `json:"debug_child,omitempty" zgrab:"debug"`
+	DebugID    string    `json:"debug_id" zgrab:"debug"`
+	Child      *DeepAnon `json:"child"`
+	DebugChild *DeepAnon `json:"debug_child" zgrab:"debug"`
 
-	Flat    Flat  `json:"flat,omitempty"`
-	PtrFlat *Flat `json:"ptr_flat,omitempty"`
+	Flat    Flat  `json:"flat"`
+	PtrFlat *Flat `json:"ptr_flat"`
 
-	DebugFlat    Flat  `json:"debug_flat,omitempty" zgrab:"debug"`
-	DebugPtrFlat *Flat `json:"debug_ptr_flat,omitempty" zgrab:"debug"`
+	DebugFlat    Flat  `json:"debug_flat" zgrab:"debug"`
+	DebugPtrFlat *Flat `json:"debug_ptr_flat" zgrab:"debug"`
 }
 
 type StrippedDeepAnon struct {
@@ -756,18 +756,18 @@ type StrippedDeepAnon struct {
 	*StrippedDeepAnon0
 	*StrippedDeepAnon1
 
-	OverrideAnon0ID string `json:"anon0_id,omitempty"`
-	OverrideAnon1ID string `json:"anon1_id,omitempty"`
+	OverrideAnon0ID string `json:"anon0_id"`
+	OverrideAnon1ID string `json:"anon1_id"`
 
-	OmitDebugID    string            `json:"debug_id,omitempty" zgrab:"debug"`
-	OverrideChild  *StrippedDeepAnon `json:"child,omitempty"`
-	OmitDebugChild *StrippedDeepAnon `json:"debug_child,omitempty" zgrab:"debug"`
+	OmitDebugID    string            `json:"debug_id" zgrab:"debug"`
+	OverrideChild  *StrippedDeepAnon `json:"child"`
+	OmitDebugChild *StrippedDeepAnon `json:"debug_child" zgrab:"debug"`
 
-	OverrideFlat    StrippedFlat  `json:"flat,omitempty"`
-	OverridePtrFlat *StrippedFlat `json:"ptr_flat,omitempty"`
+	OverrideFlat    StrippedFlat  `json:"flat"`
+	OverridePtrFlat *StrippedFlat `json:"ptr_flat"`
 
-	OverrideDebugFlat Flat  `json:"debug_flat,omitempty" zgrab:"debug"`
-	OmitDebugPtrFlat  *Flat `json:"debug_ptr_flat,omitempty" zgrab:"debug"`
+	OverrideDebugFlat Flat  `json:"debug_flat" zgrab:"debug"`
+	OmitDebugPtrFlat  *Flat `json:"debug_ptr_flat" zgrab:"debug"`
 }
 
 func (deep *DeepAnon) GetStripped() *StrippedDeepAnon {
@@ -930,7 +930,7 @@ type fakeMySQLScanResults struct {
 
 	// CharacterSet is the identifier for the character set the server is
 	// using. Returned in the initial HandshakePacket.
-	CharacterSet byte `json:"character_set,omitempty" zgrab:"debug"`
+	CharacterSet byte `json:"character_set" zgrab:"debug"`
 
 	// StatusFlags is the set of status flags the server returned in the
 	// initial HandshakePacket. Each true entry in the map corresponds to
@@ -946,22 +946,22 @@ type fakeMySQLScanResults struct {
 
 	// AuthPluginName is the name of the authentication plugin, returned
 	// in the initial HandshakePacket.
-	AuthPluginName string `json:"auth_plugin_name,omitempty" zgrab:"debug"`
+	AuthPluginName string `json:"auth_plugin_name" zgrab:"debug"`
 
 	// ErrorCode is only set if there is an error returned by the server,
 	// for example if the scanner is not on the allowed hosts list.
-	ErrorCode *int `json:"error_code,omitempty"`
+	ErrorCode *int `json:"error_code"`
 
 	// ErrorMessage is an optional string describing the error. Only set
 	// if there is an error.
-	ErrorMessage string `json:"error_message,omitempty"`
+	ErrorMessage string `json:"error_message"`
 
 	// RawPackets contains the base64 encoding of all packets sent and
 	// received during the scan.
-	RawPackets []string `json:"raw_packets,omitempty"`
+	RawPackets []string `json:"raw_packets"`
 
 	// TLSLog contains the usual shared TLS logs.
-	TLSLog *zgrab2.TLSLog `json:"tls,omitempty"`
+	TLSLog *zgrab2.TLSLog `json:"tls"`
 }
 
 // TestMySQL builds a bogus MySQL result, and then manually checks that the

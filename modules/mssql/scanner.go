@@ -23,22 +23,22 @@ import (
 type ScanResults struct {
 	// Version is the version returned by the server in the PRELOGIN response.
 	// Its format is "MAJOR.MINOR.BUILD_NUMBER".
-	Version string `json:"version,omitempty"`
+	Version string `json:"version"`
 
 	// InstanceName is the value of the INSTANCE field returned by the server
 	// in the PRELOGIN response. Using a pointer to distinguish between the
 	// server returning an empty name and no name being returned.
-	InstanceName *string `json:"instance_name,omitempty"`
+	InstanceName *string `json:"instance_name"`
 
 	// PreloginOptions are the raw key-value pairs returned by the server in
 	// response to the PRELOGIN call. Debug only.
-	PreloginOptions *PreloginOptions `json:"prelogin_options,omitempty" zgrab:"debug"`
+	PreloginOptions *PreloginOptions `json:"prelogin_options" zgrab:"debug"`
 
 	// EncryptMode is the mode negotiated with the server.
-	EncryptMode *EncryptMode `json:"encrypt_mode,omitempty"`
+	EncryptMode *EncryptMode `json:"encrypt_mode"`
 
 	// TLSLog is the shared TLS handshake/scan log.
-	TLSLog *zgrab2.TLSLog `json:"tls,omitempty"`
+	TLSLog *zgrab2.TLSLog `json:"tls"`
 }
 
 // Flags defines the command-line configuration options for the module.

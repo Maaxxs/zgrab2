@@ -68,98 +68,98 @@ type scan struct {
 type Result struct {
 	// Commands is the list of commands actually sent to the server, serialized
 	// in inline format (e.g. COMMAND arg1 "arg 2" arg3)
-	Commands []string `json:"commands,omitempty" zgrab:"debug"`
+	Commands []string `json:"commands" zgrab:"debug"`
 
 	// RawCommandOutput is the output returned by the server for each command sent;
 	// the index in RawCommandOutput matches the index in Commands.
-	RawCommandOutput [][]byte `json:"raw_command_output,omitempty" zgrab:"debug"`
+	RawCommandOutput [][]byte `json:"raw_command_output" zgrab:"debug"`
 
 	// PingResponse is the response from the server, should be the simple string
 	// "PONG".
 	// NOTE: This is invoked *before* calling AUTH, so this may return an auth
 	// required error even if --password is provided.
-	PingResponse string `json:"ping_response,omitempty"`
+	PingResponse string `json:"ping_response"`
 
 	// AuthResponse is only included if --password is set.
-	AuthResponse string `json:"auth_response,omitempty"`
+	AuthResponse string `json:"auth_response"`
 
 	// InfoResponse is the response from the INFO command: "Lines can contain a
 	// section name (starting with a # character) or a property. All the
 	// properties are in the form of field:value terminated by \r\n."
-	InfoResponse string `json:"info_response,omitempty"`
+	InfoResponse string `json:"info_response"`
 
 	// Version is read from the InfoResponse (the field "server_version"), if
 	// present.
-	Version string `json:"version,omitempty"`
+	Version string `json:"version"`
 
 	// Major is the version's major number.
-	Major *uint32 `json:"major,omitempty"`
+	Major *uint32 `json:"major"`
 
 	// Minor is the version's minor number.
-	Minor *uint32 `json:"minor,omitempty"`
+	Minor *uint32 `json:"minor"`
 
 	// Patchlevel is the version's patchlevel number.
-	Patchlevel *uint32 `json:"patchlevel,omitempty"`
+	Patchlevel *uint32 `json:"patchlevel"`
 
 	// OS is read from the InfoResponse (the field "os"), if present. It specifies
 	// the OS the redis server is running.
-	OS string `json:"os,omitempty"`
+	OS string `json:"os"`
 
 	// ArchBits is read from the InfoResponse (the field "arch_bits"), if present.
 	// It specifies the architecture bits (32 or 64) the redis server used to build.
-	ArchBits string `json:"arch_bits,omitempty"`
+	ArchBits string `json:"arch_bits"`
 
 	// Mode is read from the InfoResponse (the field "redis_mode"), if present.
 	// It specifies the mode the redis server is running, either cluster or standalone.
-	Mode string `json:"mode,omitempty"`
+	Mode string `json:"mode"`
 
 	// GitSha1 is read from the InfoResponse (the field "redis_git_sha1"), if present.
 	// It specifies the Git Sha 1 the redis server used.
-	GitSha1 string `json:"git_sha1,omitempty"`
+	GitSha1 string `json:"git_sha1"`
 
 	// BuildID is read from the InfoResponse (the field "redis_build_id"), if present.
 	// It specifies the Build ID of the redis server.
-	BuildID string `json:"build_id,omitempty"`
+	BuildID string `json:"build_id"`
 
 	// GCCVersion is read from the InfoResponse (the field "gcc_version"), if present.
 	// It specifies the version of the GCC compiler used to compile the Redis server.
-	GCCVersion string `json:"gcc_version,omitempty"`
+	GCCVersion string `json:"gcc_version"`
 
 	// MemAllocator is read from the InfoResponse (the field "mem_allocator"), if present.
 	// It specifies the memory allocator.
-	MemAllocator string `json:"mem_allocator,omitempty"`
+	MemAllocator string `json:"mem_allocator"`
 
 	// Uptime is read from the InfoResponse (the field "uptime_in_seconds"), if present.
 	// It specifies the number of seconds since Redis server start.
-	Uptime uint32 `json:"uptime_in_seconds,omitempty"`
+	Uptime uint32 `json:"uptime_in_seconds"`
 
 	// UsedMemory is read from the InfoResponse (the field "used_memory"), if present.
 	// It specifies the total number of bytes allocated by Redis using its allocator.
-	UsedMemory uint32 `json:"used_memory,omitempty"`
+	UsedMemory uint32 `json:"used_memory"`
 
 	// ConnectionsReceived is read from the InfoResponse (the field "total_connections_received"),
 	// if present. It specifies the total number of connections accepted by the server.
-	ConnectionsReceived uint32 `json:"total_connections_received,omitempty"`
+	ConnectionsReceived uint32 `json:"total_connections_received"`
 
 	// CommandsProcessed is read from the InfoResponse (the field "total_commands_processed"),
 	// if present. It specifies the total number of commands processed by the server.
-	CommandsProcessed uint32 `json:"total_commands_processed,omitempty"`
+	CommandsProcessed uint32 `json:"total_commands_processed"`
 
 	// NonexistentResponse is the response to the non-existent command; even if
 	// auth is required, this may give a different error than existing commands.
-	NonexistentResponse string `json:"nonexistent_response,omitempty"`
+	NonexistentResponse string `json:"nonexistent_response"`
 
 	// CustomResponses is an array that holds the commands, arguments, and
 	// responses from user-inputted commands.
-	CustomResponses []CustomResponse `json:"custom_responses,omitempty"`
+	CustomResponses []CustomResponse `json:"custom_responses"`
 
 	// QuitResponse is the response from the QUIT command -- should be the
 	// simple string "OK" even when authentication is required, unless the
 	// QUIT command was renamed.
-	QuitResponse string `json:"quit_response,omitempty"`
+	QuitResponse string `json:"quit_response"`
 
 	// TLSLog is the standard TLS log for the connection if used
-	TLSLog *zgrab2.TLSLog `json:"tls,omitempty"`
+	TLSLog *zgrab2.TLSLog `json:"tls"`
 }
 
 // RegisterModule registers the zgrab2 module

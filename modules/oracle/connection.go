@@ -15,15 +15,15 @@ type HandshakeLog struct {
 
 	// GlobalServiceOptions is the set of GlobalServiceOptions flags that the
 	// server returns in the Accept packet.
-	GlobalServiceOptions map[string]bool `json:"global_service_options,omitempty"`
+	GlobalServiceOptions map[string]bool `json:"global_service_options"`
 
 	// ConnectFlags0 is the first set of ConnectFlags values that the server
 	// returns in the Accept packet for the first.
-	ConnectFlags0 map[string]bool `json:"connect_flags0,omitempty"`
+	ConnectFlags0 map[string]bool `json:"connect_flags0"`
 
 	// ConnectFlags1 is the second set of ConnectFlags values that the server
 	// returns in the Accept packet for the first.
-	ConnectFlags1 map[string]bool `json:"connect_flags1,omitempty"`
+	ConnectFlags1 map[string]bool `json:"connect_flags1"`
 
 	// DidResend is true if the server sent a Resend packet in response to the
 	// client's first Connect packet.
@@ -31,43 +31,43 @@ type HandshakeLog struct {
 
 	// RedirectTargetRaw is the connect descriptor returned by the server in the
 	// Redirect packet, if one is sent. Otherwise it is empty/omitted.
-	RedirectTargetRaw string `json:"redirect_target_raw,omitempty"`
+	RedirectTargetRaw string `json:"redirect_target_raw"`
 
 	// RedirectTarget is the parsed connect descriptor returned by the server in
 	// the Redirect packet, if one is sent. Otherwise it is empty/omitted.
-	RedirectTarget Descriptor `json:"redirect_target,omitempty"`
+	RedirectTarget Descriptor `json:"redirect_target"`
 
 	// RefuseErrorRaw is the Data from the Refuse packet returned by the server;
 	// it is empty if the server does not return a Refuse packet.
-	RefuseErrorRaw string `json:"refuse_error_raw,omitempty"`
+	RefuseErrorRaw string `json:"refuse_error_raw"`
 
 	// RefuseError is the parsed descriptor returned by the server in the Refuse
 	// packet; it is empty if the server does not return a Refuse packet.
-	RefuseError Descriptor `json:"refuse_error,omitempty"`
+	RefuseError Descriptor `json:"refuse_error"`
 
 	// RefuseReasonApp is the "AppReason" returned by the server in a Refused
 	// response packet.
-	RefuseReasonApp string `json:"refuse_reason_app,omitempty"`
+	RefuseReasonApp string `json:"refuse_reason_app"`
 
 	// RefuseReasonSys is the "SysReason" returned by the server in a Refused
 	// response packet.
-	RefuseReasonSys string `json:"refuse_reason_sys,omitempty"`
+	RefuseReasonSys string `json:"refuse_reason_sys"`
 
 	// RefuseVersion is the parsed DESCRIPTION.VSNNUM field from the RefuseError
 	// string returned by the server in the Refuse packet, in dotted-decimal
 	// format.
-	RefuseVersion string `json:"refuse_version,omitempty"`
+	RefuseVersion string `json:"refuse_version"`
 
 	// DidResend is set to true if the server sent a Resend packet after the
 	// first Connect packet.
 
 	// NSNVersion is the ReleaseVersion string (in dotted decimal format) in the
 	// root of the Native Service Negotiation packet.
-	NSNVersion string `json:"nsn_version,omitempty"`
+	NSNVersion string `json:"nsn_version"`
 
 	// NSNServiceVersions is a map from the Native Service Negotiation service
 	// name to the ReleaseVersion in that service packet.
-	NSNServiceVersions map[string]string `json:"nsn_service_versions,omitempty"`
+	NSNServiceVersions map[string]string `json:"nsn_service_versions"`
 }
 
 // Connection holds the state for a scan connection to the Oracle server.

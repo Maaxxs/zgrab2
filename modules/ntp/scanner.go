@@ -583,19 +583,19 @@ type NTPHeader struct {
 	RootDispersion NTPShort `json:"root_dispersion"`
 
 	// Reference ID (refid): 32-bit code identifying the particular Server or reference clock.
-	ReferenceID ReferenceID `json:"reference_id,omitempty"`
+	ReferenceID ReferenceID `json:"reference_id"`
 
 	// Reference Timestamp: Time when the system clock was last set or corrected
-	ReferenceTimestamp NTPLong `json:"reference_timestamp,omitempty"`
+	ReferenceTimestamp NTPLong `json:"reference_timestamp"`
 
 	// Origin Timestamp (org): Time at the Client when the request departed for the Server
-	OriginTimestamp NTPLong `json:"origin_timestamp,omitempty"`
+	OriginTimestamp NTPLong `json:"origin_timestamp"`
 
 	// Receive Timestamp (rec): Time at the Server when the request arrived from the Client
-	ReceiveTimestamp NTPLong `json:"receive_timestamp,omitempty"`
+	ReceiveTimestamp NTPLong `json:"receive_timestamp"`
 
 	// Transmit Timestamp (xmt): Time at the Server when the response left for the Client
-	TransmitTimestamp NTPLong `json:"transmit_timestamp,omitempty"`
+	TransmitTimestamp NTPLong `json:"transmit_timestamp"`
 }
 
 // decodeNTPHeader decodes an NTP header from the first 48 bytes of buf
@@ -770,25 +770,25 @@ func decodePrivatePacketHeader(buf []byte) (*PrivatePacketHeader, error) {
 type Results struct {
 	// Version is the version number returned in the get time response header.
 	// Absent if --skip-get-time is set.
-	Version *uint8 `json:"version,omitempty"`
+	Version *uint8 `json:"version"`
 
 	// Time is the time returned by the server (specifically, the
 	// ReceiveTimestamp) in response to the get time call. Converted into a
 	// standard golang time.
 	// Absent if --skip-get-time is set.
-	Time *time.Time `json:"time,omitempty"`
+	Time *time.Time `json:"time"`
 
 	// TimeResponse is the full header returned by the get time call.
 	// Absent if --skip-get-time is set. Debug only.
-	TimeResponse *NTPHeader `json:"time_response,omitempty" zgrab:"debug"`
+	TimeResponse *NTPHeader `json:"time_response" zgrab:"debug"`
 
 	// MonListResponse is the raw data returned by the call to monlist.
 	// Only present if --monlist is set.
-	MonListResponse []byte `json:"monlist_response,omitempty"`
+	MonListResponse []byte `json:"monlist_response"`
 
 	// MonListHeader is the header returned by the call to monlist.
 	// Only present if --monlist is set. Debug only.
-	MonListHeader *PrivatePacketHeader `json:"monlist_header,omitempty" zgrab:"debug"`
+	MonListHeader *PrivatePacketHeader `json:"monlist_header" zgrab:"debug"`
 }
 
 // Flags holds the command-line flags for the scanner.

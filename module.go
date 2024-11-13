@@ -33,9 +33,9 @@ type ScanResponse struct {
 	// the scan name.
 	Protocol string `json:"protocol"`
 
-	Result    interface{} `json:"result,omitempty"`
-	Timestamp string      `json:"timestamp,omitempty"`
-	Error     *string     `json:"error,omitempty"`
+	Result    interface{} `json:"result"`
+	Timestamp string      `json:"timestamp"`
+	Error     *string     `json:"error"`
 }
 
 // ScanModule is an interface which represents a module that the framework can

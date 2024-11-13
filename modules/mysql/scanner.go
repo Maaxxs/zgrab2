@@ -23,54 +23,54 @@ type ScanResults struct {
 	// ServerVersion is a null-terminated string giving the specific
 	// server version in the initial HandshakePacket. Often of the format
 	// x.y.z, but not always.
-	ServerVersion string `json:"server_version,omitempty"`
+	ServerVersion string `json:"server_version"`
 
 	// ConnectionID is the server's internal identifier for this client's
 	// connection, sent in the initial HandshakePacket.
-	ConnectionID uint32 `json:"connection_id,omitempty" zgrab:"debug"`
+	ConnectionID uint32 `json:"connection_id" zgrab:"debug"`
 
 	// AuthPluginData is optional plugin-specific data, whose meaning
 	// depends on the value of AuthPluginName. Returned in the initial
 	// HandshakePacket.
-	AuthPluginData []byte `json:"auth_plugin_data,omitempty" zgrab:"debug"`
+	AuthPluginData []byte `json:"auth_plugin_data" zgrab:"debug"`
 
 	// CharacterSet is the identifier for the character set the server is
 	// using. Returned in the initial HandshakePacket.
-	CharacterSet byte `json:"character_set,omitempty" zgrab:"debug"`
+	CharacterSet byte `json:"character_set" zgrab:"debug"`
 
 	// StatusFlags is the set of status flags the server returned in the
 	// initial HandshakePacket. Each true entry in the map corresponds to
 	// a bit set to 1 in the flags, where the keys correspond to the
 	// #defines in the MySQL docs.
-	StatusFlags map[string]bool `json:"status_flags,omitempty"`
+	StatusFlags map[string]bool `json:"status_flags"`
 
 	// CapabilityFlags is the set of capability flags the server returned
 	// initial HandshakePacket. Each true entry in the map corresponds to
 	// a bit set to 1 in the flags, where the keys correspond to the
 	// #defines in the MySQL docs.
-	CapabilityFlags map[string]bool `json:"capability_flags,omitempty"`
+	CapabilityFlags map[string]bool `json:"capability_flags"`
 
 	// AuthPluginName is the name of the authentication plugin, returned
 	// in the initial HandshakePacket.
-	AuthPluginName string `json:"auth_plugin_name,omitempty" zgrab:"debug"`
+	AuthPluginName string `json:"auth_plugin_name" zgrab:"debug"`
 
 	// ErrorCode is only set if there is an error returned by the server,
 	// for example if the scanner is not on the allowed hosts list.
-	ErrorCode *int `json:"error_code,omitempty"`
+	ErrorCode *int `json:"error_code"`
 
 	// ErrorID is the friendly name of the error code, if recognized.
-	ErrorID string `json:"error_id,omitempty"`
+	ErrorID string `json:"error_id"`
 
 	// ErrorMessage is an optional string describing the error. Only set
 	// if there is an error.
-	ErrorMessage string `json:"error_message,omitempty"`
+	ErrorMessage string `json:"error_message"`
 
 	// RawPackets contains the base64 encoding of all packets sent and
 	// received during the scan.
-	RawPackets []string `json:"raw_packets,omitempty" zgrab:"debug"`
+	RawPackets []string `json:"raw_packets" zgrab:"debug"`
 
 	// TLSLog contains the usual shared TLS logs.
-	TLSLog *zgrab2.TLSLog `json:"tls,omitempty"`
+	TLSLog *zgrab2.TLSLog `json:"tls"`
 }
 
 // Put the error into the results.
