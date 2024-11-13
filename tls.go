@@ -322,6 +322,8 @@ type TLSConnection struct {
 type TLSLog struct {
 	// TODO include TLSFlags?
 	HandshakeLog *tls.ServerHandshake `json:"handshake_log"`
+	// This will be nil if heartbleed is not checked because of client configuration flags
+	HeartbleedLog *tls.Heartbleed `json:"heartbleed_log"`
 }
 
 func (z *TLSConnection) GetLog() *TLSLog {

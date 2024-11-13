@@ -41,7 +41,7 @@ type MEIResponse struct {
 	ObjectCount int `json:"object_count"`
 
 	// Objects is a set of object ID/value pairs returned by the server.
-	Objects MEIObjectSet `json:"objects,omitempty"`
+	Objects MEIObjectSet `json:"objects"`
 }
 
 // MEIObjectSet wraps the list of object ID/value pairs, encoding them as a dict of ID name -> value
@@ -144,18 +144,18 @@ type ModbusEvent struct {
 	Function FunctionCode `json:"function_code"`
 
 	// Response is the response data (not including the function code).
-	Response []byte `json:"raw_response,omitempty"`
+	Response []byte `json:"raw_response"`
 
 	// MEIResponse is the parsed response; it is present if the response was decoded successfully and there was no
 	// exception.
-	MEIResponse *MEIResponse `json:"mei_response,omitempty"`
+	MEIResponse *MEIResponse `json:"mei_response"`
 
 	// ExceptionResponse is the parsed exception; it is present if the response was decoded successfully and there was
 	// an exception (i.e. the high bit of Function is set).
-	ExceptionResponse *ExceptionResponse `json:"exception_response,omitempty"`
+	ExceptionResponse *ExceptionResponse `json:"exception_response"`
 
 	// Raw is the full raw response from the server, including the header.
-	Raw []byte `json:"raw,omitempty"`
+	Raw []byte `json:"raw"`
 }
 
 // IsException returns true if this response indicates an exception has occurred.

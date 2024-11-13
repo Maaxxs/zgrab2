@@ -17,21 +17,21 @@ package ssh
 // HandshakeLog contains detailed information about each step of the
 // SSH handshake, and can be encoded to JSON.
 type HandshakeLog struct {
-	Banner             string            `json:"banner,omitempty"`
-	ServerID           *EndpointId       `json:"server_id,omitempty"`
-	ClientID           *EndpointId       `json:"client_id,omitempty"`
-	ServerKex          *KexInitMsg       `json:"server_key_exchange,omitempty"`
-	ClientKex          *KexInitMsg       `json:"client_key_exchange,omitempty"`
-	AlgorithmSelection *algorithms       `json:"algorithm_selection,omitempty"`
-	KeyExchange        kexAlgorithm      `json:"key_exchange,omitempty"`
-	Extensions         map[string][]byte `json:"extensions,omitempty"`
-	UserAuth           []string          `json:"userauth,omitempty"`
-	Crypto             *kexResult        `json:"crypto,omitempty"`
+	Banner             string            `json:"banner"`
+	ServerID           *EndpointId       `json:"server_id"`
+	ClientID           *EndpointId       `json:"client_id"`
+	ServerKex          *KexInitMsg       `json:"server_key_exchange"`
+	ClientKex          *KexInitMsg       `json:"client_key_exchange"`
+	AlgorithmSelection *algorithms       `json:"algorithm_selection"`
+	KeyExchange        kexAlgorithm      `json:"key_exchange"`
+	Extensions         map[string][]byte `json:"extensions"`
+	UserAuth           []string          `json:"userauth"`
+	Crypto             *kexResult        `json:"crypto"`
 }
 
 type EndpointId struct {
-	Raw             string `json:"raw,omitempty"`
-	ProtoVersion    string `json:"version,omitempty"`
-	SoftwareVersion string `json:"software,omitempty"`
-	Comment         string `json:"comment,omitempty"`
+	Raw             string `json:"raw"`
+	ProtoVersion    string `json:"version"`
+	SoftwareVersion string `json:"software"`
+	Comment         string `json:"comment"`
 }

@@ -17,19 +17,19 @@ package telnet
 // TelnetLog is the output of the telnet grab.
 type TelnetLog struct {
 	// Banner is the telnet banner returned by the server.
-	Banner string `json:"banner,omitempty"`
+	Banner string `json:"banner"`
 
 	// Will is the list of options that the server says that it will use.
-	Will []TelnetOption `json:"will,omitempty"`
+	Will []TelnetOption `json:"will"`
 
 	// Do is the list of options that the server requests that the client use.
-	Do []TelnetOption `json:"do,omitempty"`
+	Do []TelnetOption `json:"do"`
 
 	// Wont is the list of options that the server says it will *not* use.
-	Wont []TelnetOption `json:"wont,omitempty"`
+	Wont []TelnetOption `json:"wont"`
 
 	// Dont is the list of options that the server requests the client *not* use.
-	Dont []TelnetOption `json:"dont,omitempty"`
+	Dont []TelnetOption `json:"dont"`
 }
 
 // isTelnet checks if this struct represents having actually detected a Telnet service.
