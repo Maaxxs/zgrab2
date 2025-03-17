@@ -98,7 +98,7 @@ func (s *SSHScanner) GetTrigger() string {
 }
 
 func (s *SSHScanner) Scan(t zgrab2.ScanTarget) (zgrab2.ScanStatus, interface{}, error) {
-	log.Debugf("Start SSH scan ")
+	// log.Debugf("Start SSH scan ")
 	data := new(ssh.HandshakeLog)
 	portStr := strconv.Itoa(int(t.Port))
 	rhost := net.JoinHostPort(t.Host(), portStr)
