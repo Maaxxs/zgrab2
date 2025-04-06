@@ -220,6 +220,38 @@ func NewTimeoutConnection(ctx context.Context, conn net.Conn, sessionTimeout, re
 	return ret
 }
 
+// DialTimeoutConnectionEx dials the target and returns a net.Conn that uses the configured timeouts for Read/Write operations.
+func DialTimeoutConnectionEx(proto string, target string, dialTimeout, sessionTimeout, readTimeout, writeTimeout time.Duration, bytesReadLimit int) (net.Conn, error) {
+	var dialer *net.Dialer
+	if dialTimeout > 0 {
+		dialer = &net.Dialer{
+			Timeout: dialTimeout,
+		}
+	} else {
+		dialer = &net.Dialer{
+			Timeout: sessionTimeout,
+		}
+	}
+
+	if config.localAddr != nil {
+		dialer.LocalAddr = config.localAddr
+	}
+
+	conn, err := dialer.Dial(proto, target)
+	if err != nil {
+		if conn != nil {
+			conn.Close()
+		}
+		return nil, err
+	}
+	return NewTimeoutConnection(context.Background(), conn, sessionTimeout, readTimeout, writeTimeout, bytesReadLimit), nil
+}
+
+// DialTimeoutConnection dials the target and returns a net.Conn that uses the configured single timeout for all operations.
+func DialTimeoutConnection(proto string, target string, timeout time.Duration, bytesReadLimit int) (net.Conn, error) {
+	return DialTimeoutConnectionEx(proto, target, timeout, timeout, timeout, timeout, bytesReadLimit)
+}
+
 // Dialer provides Dial and DialContext methods to get connections with the given timeout.
 type Dialer struct {
 	// SessionTimeout is the maximum time to wait for the entire session, after which any operations on the
@@ -394,12 +426,16 @@ func (d *Dialer) SetDefaults() *Dialer {
 		d.BytesReadLimit = DefaultBytesReadLimit
 	}
 	if d.Dialer == nil {
-		d.Dialer = &net.Dialer{} // initialize defaults to prevent nil pointer dereference
-		if len(config.customDNSNameservers) > 0 {
-			d.Dialer = &net.Dialer{}
-			// this may be a single IP address or a comma-separated list of IP addresses
-			ns := config.customDNSNameservers[rand.Intn(len(config.customDNSNameservers))]
-			d.Resolver = &net.Resolver{
+		d.Dialer = &net.Dialer{
+			LocalAddr: config.localAddr,
+			Timeout:   d.Timeout,
+			KeepAlive: d.Timeout,
+			DualStack: true,
+		}
+
+		// Use custom DNS as default if set
+		if config.CustomDNS != "" {
+			d.Dialer.Resolver = &net.Resolver{
 				PreferGo: true,
 				Dial: func(ctx context.Context, network, address string) (net.Conn, error) {
 					return d.Dialer.DialContext(ctx, network, ns)
