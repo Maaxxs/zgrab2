@@ -234,13 +234,22 @@ func NewTimeoutConnection(ctx context.Context, conn net.Conn, timeout, readTimeo
 
 // DialTimeoutConnectionEx dials the target and returns a net.Conn that uses the configured timeouts for Read/Write operations.
 func DialTimeoutConnectionEx(proto string, target string, dialTimeout, sessionTimeout, readTimeout, writeTimeout time.Duration, bytesReadLimit int) (net.Conn, error) {
-	var conn net.Conn
-	var err error
+	var dialer *net.Dialer
 	if dialTimeout > 0 {
-		conn, err = net.DialTimeout(proto, target, dialTimeout)
+		dialer = &net.Dialer{
+			Timeout: dialTimeout,
+		}
 	} else {
-		conn, err = net.DialTimeout(proto, target, sessionTimeout)
+		dialer = &net.Dialer{
+			Timeout: sessionTimeout,
+		}
 	}
+
+	if config.localAddr != nil {
+		dialer.LocalAddr = config.localAddr
+	}
+
+	conn, err := dialer.Dial(proto, target)
 	if err != nil {
 		if conn != nil {
 			conn.Close()
@@ -337,6 +346,7 @@ func (d *Dialer) SetDefaults() *Dialer {
 	}
 	if d.Dialer == nil {
 		d.Dialer = &net.Dialer{
+			LocalAddr: config.localAddr,
 			Timeout:   d.Timeout,
 			KeepAlive: d.Timeout,
 			DualStack: true,

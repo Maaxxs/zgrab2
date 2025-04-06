@@ -13,6 +13,7 @@ import (
 // Config is the high level framework options that will be parsed
 // from the command line
 type Config struct {
+	LocalAddrString    string          `long:"source-ip" default:"" description:"Set as local source IP."`
 	OutputFileName     string          `short:"o" long:"output-file" default:"-" description:"Output filename, use - for stdout"`
 	InputFileName      string          `short:"f" long:"input-file" default:"-" description:"Input filename, use - for stdin"`
 	MetaFileName       string          `short:"m" long:"metadata-file" default:"-" description:"Metadata filename, use - for stderr"`
@@ -64,7 +65,7 @@ func validateFrameworkConfiguration() {
 		log.SetOutput(config.logFile)
 	}
 
-	if config.Debug{
+	if config.Debug {
 		log.SetLevel(log.DebugLevel)
 	}
 
@@ -97,6 +98,18 @@ func validateFrameworkConfiguration() {
 		if config.metaFile, err = os.Create(config.MetaFileName); err != nil {
 			log.Fatal(err)
 		}
+	}
+
+	if config.LocalAddrString != "" {
+		log.Info("Set local sending address to: ", config.LocalAddrString)
+		config.localAddr = &net.TCPAddr{
+			IP:   net.ParseIP(config.LocalAddrString),
+			Port: 0, // zero means OS chooses source port
+		}
+
+		// Set the source IP in the environment so that the SSH dialer can access it.
+		// More or less a dumb hack.
+		os.Setenv("SOURCE_IP", config.LocalAddrString)
 	}
 
 	// Validate Go Runtime config

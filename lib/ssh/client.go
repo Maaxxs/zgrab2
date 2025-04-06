@@ -233,7 +233,24 @@ func (c *Client) handleChannelOpens(in <-chan NewChannel) {
 // to incoming channels and requests, use net.Dial with NewClientConn
 // instead.
 func Dial(network, addr string, config *ClientConfig) (*Client, error) {
-	conn, err := net.DialTimeout(network, addr, config.Timeout)
+	source_ip := os.Getenv("SOURCE_IP")
+
+	var dialer *net.Dialer
+	if source_ip != "" {
+		dialer = &net.Dialer{
+			LocalAddr: &net.TCPAddr{
+				IP:   net.ParseIP(source_ip),
+				Port: 0,
+			},
+			Timeout: config.Timeout,
+		}
+	} else {
+		dialer = &net.Dialer{
+			Timeout: config.Timeout,
+		}
+	}
+
+	conn, err := dialer.Dial(network, addr)
 	if err != nil {
 		return nil, err
 	}
