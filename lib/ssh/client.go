@@ -26,6 +26,10 @@ type Client struct {
 	channelHandlers map[string]chan NewChannel
 }
 
+type fixedHostKey struct {
+	key PublicKey
+}
+
 // HandleChannelOpen returns a channel on which NewChannel requests
 // for the given type are sent. If the type already is being handled,
 // nil is returned. The channel is closed when the connection is closed.
