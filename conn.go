@@ -426,17 +426,12 @@ func (d *Dialer) SetDefaults() *Dialer {
 		d.BytesReadLimit = DefaultBytesReadLimit
 	}
 	if d.Dialer == nil {
-		d.Dialer = &net.Dialer{
-			LocalAddr: config.localAddr,
-			Timeout:   d.Timeout,
-			KeepAlive: d.Timeout,
-			DualStack: true,
-		}
-
-		// Use custom DNS as default if set
-		if config.CustomDNS != "" {
+		d.Dialer = &net.Dialer{} // initialize defaults to prevent nil pointer dereference
+		if len(config.customDNSNameservers) > 0 {
+			d.Dialer = &net.Dialer{}
+			// this may be a single IP address or a comma-separated list of IP addresses
 			ns := config.customDNSNameservers[rand.Intn(len(config.customDNSNameservers))]
-			d.Dialer.Resolver = &net.Resolver{
+			d.Resolver = &net.Resolver{
 				PreferGo: true,
 				Dial: func(ctx context.Context, network, address string) (net.Conn, error) {
 					return d.Dialer.DialContext(ctx, network, ns)
