@@ -232,6 +232,13 @@ func InsecureIgnoreHostKey() HostKeyCallback {
 	}
 }
 
+// FixedHostKey returns a function for use in
+// ClientConfig.HostKeyCallback to accept only a specific host key.
+func FixedHostKey(key PublicKey) HostKeyCallback {
+	hk := &fixedHostKey{key}
+	return hk.check
+}
+
 // Dial starts a client connection to the given SSH server. It is a
 // convenience function that connects to the given network address,
 // initiates the SSH handshake, and then sets up a Client.  For access
