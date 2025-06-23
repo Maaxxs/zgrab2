@@ -8,6 +8,7 @@ import (
 	"errors"
 	"fmt"
 	"net"
+	"os"
 	"strings"
 	"sync"
 	"time"
@@ -220,6 +221,15 @@ func (c *Client) handleChannelOpens(in <-chan NewChannel) {
 	}
 	c.channelHandlers = nil
 	c.mu.Unlock()
+}
+
+// InsecureIgnoreHostKey returns a function that can be used for
+// ClientConfig.HostKeyCallback to accept any host key. It should
+// not be used for production code.
+func InsecureIgnoreHostKey() HostKeyCallback {
+	return func(hostname string, remote net.Addr, key PublicKey) error {
+		return nil
+	}
 }
 
 // Dial starts a client connection to the given SSH server. It is a

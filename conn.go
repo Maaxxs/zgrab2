@@ -435,6 +435,7 @@ func (d *Dialer) SetDefaults() *Dialer {
 
 		// Use custom DNS as default if set
 		if config.CustomDNS != "" {
+			ns := config.customDNSNameservers[rand.Intn(len(config.customDNSNameservers))]
 			d.Dialer.Resolver = &net.Resolver{
 				PreferGo: true,
 				Dial: func(ctx context.Context, network, address string) (net.Conn, error) {
