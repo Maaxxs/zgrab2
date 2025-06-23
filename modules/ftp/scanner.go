@@ -258,7 +258,7 @@ func (ftp *Connection) GetFTPSCertificates(ctx context.Context, target *zgrab2.S
 //   - Perform ths TLS handshake / any configured TLS scans, populating
 //     results.TLSLog.
 //   - Return SCAN_SUCCESS, &results, nil
-func (s *Scanner) Scan(t zgrab2.ScanTarget) (status zgrab2.ScanStatus, result interface{}, thrown error) {
+func (scanner *Scanner) Scan(ctx context.Context, dialGroup *zgrab2.DialerGroup, t *zgrab2.ScanTarget) (zgrab2.ScanStatus, any, error) {
 	// log.Debugf("Start ftp scan")
 	var err error
 	if dialGroup.L4Dialer == nil {

@@ -5,6 +5,7 @@
 package ssh
 
 import (
+	"bytes"
 	"errors"
 	"fmt"
 	"net"
@@ -234,6 +235,16 @@ func InsecureIgnoreHostKey() HostKeyCallback {
 	return func(hostname string, remote net.Addr, key PublicKey) error {
 		return nil
 	}
+}
+
+func (f *fixedHostKey) check(hostname string, remote net.Addr, key PublicKey) error {
+	if f.key == nil {
+		return errors.New("ssh: required host key was nil")
+	}
+	if !bytes.Equal(key.Marshal(), f.key.Marshal()) {
+		return errors.New("ssh: host key mismatch")
+	}
+	return nil
 }
 
 // FixedHostKey returns a function for use in
