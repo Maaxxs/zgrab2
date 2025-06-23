@@ -61,7 +61,7 @@ type handshakeTransport struct {
 	mu               sync.Mutex
 	writeError       error
 	sentInitPacket   []byte
-	sentInitMsg      *KexInitMsg
+	sentInitMsg      *kexInitMsg
 	pendingPackets   [][]byte // Used when a key exchange is in progress.
 	writePacketsLeft uint32
 	writeBytesLeft   int64
@@ -296,7 +296,7 @@ write:
 		// we never block on sending to t.requestKex.
 
 		// We're not servicing t.startKex, but the remote end
-		// has just sent us a KexInitMsg, so it can't send
+		// has just sent us a kexInitMsg, so it can't send
 		// another key change request, until we close the done
 		// channel on the pendingKex request.
 
@@ -565,7 +565,7 @@ func (t *handshakeTransport) enterKeyExchange(otherInitPacket []byte) error {
 		log.Printf("%s entered key exchange", t.id())
 	}
 
-	otherInit := &KexInitMsg{}
+	otherInit := &kexInitMsg{}
 	if err := Unmarshal(otherInitPacket, otherInit); err != nil {
 		return err
 	}

@@ -277,7 +277,7 @@ func (*kexDHInitMsg) Generate(rand *rand.Rand, size int) reflect.Value {
 }
 
 var (
-	_KexInitMsg   = new(KexInitMsg).Generate(rand.New(rand.NewSource(0)), 10).Elem().Interface()
+	_KexInitMsg   = new(kexInitMsg).Generate(rand.New(rand.NewSource(0)), 10).Elem().Interface()
 	_kexDHInitMsg = new(kexDHInitMsg).Generate(rand.New(rand.NewSource(0)), 10).Elem().Interface()
 
 	_kexInit   = Marshal(_KexInitMsg)

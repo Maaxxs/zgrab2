@@ -20,8 +20,8 @@ type HandshakeLog struct {
 	Banner             string            `json:"banner"`
 	ServerID           *EndpointId       `json:"server_id"`
 	ClientID           *EndpointId       `json:"client_id"`
-	ServerKex          *KexInitMsg       `json:"server_key_exchange"`
-	ClientKex          *KexInitMsg       `json:"client_key_exchange"`
+	ServerKex          *kexInitMsg       `json:"server_key_exchange"`
+	ClientKex          *kexInitMsg       `json:"client_key_exchange"`
 	AlgorithmSelection *algorithms       `json:"algorithm_selection"`
 	KeyExchange        kexAlgorithm      `json:"key_exchange"`
 	Extensions         map[string][]byte `json:"extensions"`

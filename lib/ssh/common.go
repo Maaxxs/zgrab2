@@ -14,10 +14,10 @@ import (
 	"strings"
 	"sync"
 
+	_ "crypto/md5"
 	_ "crypto/sha1"
 	_ "crypto/sha256"
 	_ "crypto/sha512"
-	_ "crypto/md5"
 )
 
 // These are string constants in the SSH protocol.
@@ -208,7 +208,7 @@ func (alg *algorithms) MarshalJSON() ([]byte, error) {
 	return json.Marshal(aux)
 }
 
-func findAgreedAlgorithms(isClient bool, clientKexInit, serverKexInit *KexInitMsg) (algs *algorithms, err error) {
+func findAgreedAlgorithms(isClient bool, clientKexInit, serverKexInit *kexInitMsg) (algs *algorithms, err error) {
 	result := &algorithms{}
 
 	result.kex, err = findCommon("key exchange", clientKexInit.KexAlgos, serverKexInit.KexAlgos)
