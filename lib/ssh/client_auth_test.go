@@ -313,7 +313,7 @@ func TestMethodInvalidAlgorithm(t *testing.T) {
 	found := false
 	want := "algorithm \"invalid\""
 
-	errStrings := make([]string, 0, len(serverErrors))
+	var errStrings []string
 	for _, err := range serverErrors {
 		found = found || (err != nil && strings.Contains(err.Error(), want))
 		errStrings = append(errStrings, err.Error())
@@ -825,7 +825,7 @@ func TestAuthMethodGSSAPIWithMIC(t *testing.T) {
 			},
 			gssConfig: &GSSAPIWithMICConfig{
 				AllowLogin: func(conn ConnMetadata, srcName string) (*Permissions, error) {
-					return nil, errors.New("user is not allowed to login")
+					return nil, fmt.Errorf("user is not allowed to login")
 				},
 				Server: &FakeServer{
 					exchanges: []*exchange{

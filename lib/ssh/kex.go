@@ -44,10 +44,10 @@ const (
 // kexResult captures the outcome of a key exchange.
 type kexResult struct {
 	// Session hash. See also RFC 4253, section 8.
-	H []byte `json:"H,omitempty"`
+	H []byte `json:"H"`
 
 	// Shared secret. See also RFC 4253, section 8.
-	K []byte `json:"K,omitempty"`
+	K []byte `json:"K"`
 
 	// Host key as hashed into H.
 	HostKey []byte `json:"-"`
@@ -62,7 +62,7 @@ type kexResult struct {
 
 	// The session ID, which is the first H computed. This is used
 	// to derive key material inside the transport.
-	SessionID []byte `json:"session_id,omitempty"`
+	SessionID []byte `json:"session_id"`
 }
 
 // handshakeMagics contains data that is always included in the
@@ -80,11 +80,11 @@ func (m *handshakeMagics) write(w io.Writer) {
 }
 
 type PublicKeyJsonLog struct {
-	RSAHostKey     *PublicKey `json:"rsa_public_key,omitempty"`
-	DSAHostKey     *PublicKey `json:"dsa_public_key,omitempty"`
-	ECDSAHostKey   *PublicKey `json:"ecdsa_public_key,omitempty"`
-	Ed25519HostKey *PublicKey `json:"ed25519_public_key,omitempty"`
-	CertKeyHostKey *PublicKey `json:"certkey_public_key,omitempty"`
+	RSAHostKey     *PublicKey `json:"rsa_public_key"`
+	DSAHostKey     *PublicKey `json:"dsa_public_key"`
+	ECDSAHostKey   *PublicKey `json:"ecdsa_public_key"`
+	Ed25519HostKey *PublicKey `json:"ed25519_public_key"`
+	CertKeyHostKey *PublicKey `json:"certkey_public_key"`
 }
 
 func (pkLog *PublicKeyJsonLog) AddPublicKey(pubKey PublicKey) bool {
@@ -118,9 +118,9 @@ type ServerHostKeyJsonLog struct {
 	PublicKeyJsonLog
 	Raw          []byte `json:"raw"`
 	Algorithm    string `json:"algorithm"`
-	Fingerprint  string `json:"fingerprint_sha256,omitempty"`
-	TrailingData []byte `json:"trailing_data,omitempty"`
-	ParseError   string `json:"parse_error,omitempty"`
+	Fingerprint  string `json:"fingerprint_sha256"`
+	TrailingData []byte `json:"trailing_data"`
+	ParseError   string `json:"parse_error"`
 }
 
 func LogServerHostKey(sshRawKey []byte) *ServerHostKeyJsonLog {
@@ -164,10 +164,6 @@ type kexAlgorithm interface {
 
 	// Create a JSON object for the kexAlgorithm group
 	MarshalJSON() ([]byte, error)
-
-	// Get a new instance of this interface
-	// Because the base x/crypto package passes the same object to each connection
-	GetNew(keyType string) kexAlgorithm
 }
 
 // dhGroup is a multiplicative group suitable for implementing Diffie-Hellman key agreement.
@@ -177,45 +173,15 @@ type dhGroup struct {
 	JsonLog       dhGroupJsonLog
 }
 type dhGroupJsonLog struct {
-	Parameters      *ztoolsKeys.DHParams  `json:"dh_params,omitempty"`
-	ServerSignature *JsonSignature        `json:"server_signature,omitempty"`
-	ServerHostKey   *ServerHostKeyJsonLog `json:"server_host_key,omitempty"`
+	Parameters      *ztoolsKeys.DHParams  `json:"dh_params"`
+	ServerSignature *JsonSignature        `json:"server_signature"`
+	ServerHostKey   *ServerHostKeyJsonLog `json:"server_host_key"`
 }
 
 func (group *dhGroup) MarshalJSON() ([]byte, error) {
 	group.JsonLog.Parameters.Generator = group.g
 	group.JsonLog.Parameters.Prime = group.p
 	return json.Marshal(group.JsonLog)
-}
-
-func (group *dhGroup) GetNew(keyType string) kexAlgorithm {
-	ret := new(dhGroup)
-	ret.g = new(big.Int).SetInt64(2)
-
-	switch keyType {
-	case kexAlgoDH1SHA1:
-		ret.p, _ = new(big.Int).SetString("FFFFFFFFFFFFFFFFC90FDAA22168C234C4C6628B80DC1CD129024E088A67CC74020BBEA63B139B22514A08798E3404DDEF9519B3CD3A431B302B0A6DF25F14374FE1356D6D51C245E485B576625E7EC6F44C42E9A637ED6B0BFF5CB6F406B7EDEE386BFB5A899FA5AE9F24117C4B1FE649286651ECE65381FFFFFFFFFFFFFFFF", 16)
-		ret.pMinus1 = new(big.Int).Sub(ret.p, bigOne)
-		ret.hashFunc = crypto.SHA1
-		break
-
-	case kexAlgoDH14SHA1:
-		ret.p, _ = new(big.Int).SetString("FFFFFFFFFFFFFFFFC90FDAA22168C234C4C6628B80DC1CD129024E088A67CC74020BBEA63B139B22514A08798E3404DDEF9519B3CD3A431B302B0A6DF25F14374FE1356D6D51C245E485B576625E7EC6F44C42E9A637ED6B0BFF5CB6F406B7EDEE386BFB5A899FA5AE9F24117C4B1FE649286651ECE45B3DC2007CB8A163BF0598DA48361C55D39A69163FA8FD24CF5F83655D23DCA3AD961C62F356208552BB9ED529077096966D670C354E4ABC9804F1746C08CA18217C32905E462E36CE3BE39E772C180E86039B2783A2EC07A28FB5C55DF06F4C52C9DE2BCBF6955817183995497CEA956AE515D2261898FA051015728E5A8AACAA68FFFFFFFFFFFFFFFF", 16)
-		ret.pMinus1 = new(big.Int).Sub(ret.p, bigOne)
-		ret.hashFunc = crypto.SHA1
-		break
-
-	case kexAlgoDH14SHA256:
-		ret.p, _ = new(big.Int).SetString("FFFFFFFFFFFFFFFFC90FDAA22168C234C4C6628B80DC1CD129024E088A67CC74020BBEA63B139B22514A08798E3404DDEF9519B3CD3A431B302B0A6DF25F14374FE1356D6D51C245E485B576625E7EC6F44C42E9A637ED6B0BFF5CB6F406B7EDEE386BFB5A899FA5AE9F24117C4B1FE649286651ECE45B3DC2007CB8A163BF0598DA48361C55D39A69163FA8FD24CF5F83655D23DCA3AD961C62F356208552BB9ED529077096966D670C354E4ABC9804F1746C08CA18217C32905E462E36CE3BE39E772C180E86039B2783A2EC07A28FB5C55DF06F4C52C9DE2BCBF6955817183995497CEA956AE515D2261898FA051015728E5A8AACAA68FFFFFFFFFFFFFFFF", 16)
-		ret.pMinus1 = new(big.Int).Sub(ret.p, bigOne)
-		ret.hashFunc = crypto.SHA256
-		break
-
-	default:
-		panic("Unimplemented DH KEX selected")
-	}
-
-	return ret
 }
 
 func (group *dhGroup) diffieHellman(theirPublic, myPrivate *big.Int) (*big.Int, error) {
@@ -369,36 +335,13 @@ type ecdh struct {
 }
 
 type ecdhJsonLog struct {
-	Parameters      *ztoolsKeys.ECDHParams `json:"ecdh_params,omitempty"`
-	ServerSignature *JsonSignature         `json:"server_signature,omitempty"`
-	ServerHostKey   *ServerHostKeyJsonLog  `json:"server_host_key,omitempty"`
+	Parameters      *ztoolsKeys.ECDHParams `json:"ecdh_params"`
+	ServerSignature *JsonSignature         `json:"server_signature"`
+	ServerHostKey   *ServerHostKeyJsonLog  `json:"server_host_key"`
 }
 
 func (kex *ecdh) MarshalJSON() ([]byte, error) {
 	return json.Marshal(kex.JsonLog)
-}
-
-func (kex *ecdh) GetNew(keyType string) kexAlgorithm {
-	ret := new(ecdh)
-
-	switch keyType {
-	case kexAlgoECDH521:
-		ret.curve = elliptic.P521()
-		break
-
-	case kexAlgoECDH384:
-		ret.curve = elliptic.P384()
-		break
-
-	case kexAlgoECDH256:
-		ret.curve = elliptic.P256()
-		break
-
-	default:
-		panic("Unimplemented ECDH KEX selected")
-	}
-
-	return ret
 }
 
 func (kex *ecdh) Client(c packetConn, rand io.Reader, magics *handshakeMagics, config *Config) (*kexResult, error) {
@@ -652,22 +595,18 @@ type curve25519sha256 struct {
 
 type curve25519sha256JsonLog struct {
 	Parameters      curve25519sha256JsonLogParameters `json:"curve25519_sha256_params"`
-	ServerSignature *JsonSignature                    `json:"server_signature,omitempty"`
-	ServerHostKey   *ServerHostKeyJsonLog             `json:"server_host_key,omitempty"`
+	ServerSignature *JsonSignature                    `json:"server_signature"`
+	ServerHostKey   *ServerHostKeyJsonLog             `json:"server_host_key"`
 }
 
 type curve25519sha256JsonLogParameters struct {
-	ClientPublic  []byte `json:"client_public,omitempty"`
-	ClientPrivate []byte `json:"client_private,omitempty"`
-	ServerPublic  []byte `json:"server_public,omitempty"`
+	ClientPublic  []byte `json:"client_public"`
+	ClientPrivate []byte `json:"client_private"`
+	ServerPublic  []byte `json:"server_public"`
 }
 
 func (kex *curve25519sha256) MarshalJSON() ([]byte, error) {
 	return json.Marshal(kex.JsonLog)
-}
-
-func (kex *curve25519sha256) GetNew(keyType string) kexAlgorithm {
-	return new(curve25519sha256)
 }
 
 type curve25519KeyPair struct {
@@ -823,34 +762,13 @@ type dhGEXSHA struct {
 }
 
 type gexJsonLog struct {
-	Parameters      *ztoolsKeys.DHParams  `json:"dh_params,omitempty"`
-	ServerSignature *JsonSignature        `json:"server_signature,omitempty"`
-	ServerHostKey   *ServerHostKeyJsonLog `json:"server_host_key,omitempty"`
+	Parameters      *ztoolsKeys.DHParams  `json:"dh_params"`
+	ServerSignature *JsonSignature        `json:"server_signature"`
+	ServerHostKey   *ServerHostKeyJsonLog `json:"server_host_key"`
 }
 
 func (gex *dhGEXSHA) MarshalJSON() ([]byte, error) {
 	return json.Marshal(gex.JsonLog)
-}
-
-func (gex *dhGEXSHA) GetNew(keyType string) kexAlgorithm {
-	switch keyType {
-	case kexAlgoDHGEXSHA1:
-		ret := new(dhGEXSHA)
-		ret.hashFunc = crypto.SHA1
-		ret.JsonLog = new(gexJsonLog)
-		ret.JsonLog.Parameters = new(ztoolsKeys.DHParams)
-		return ret
-
-	case kexAlgoDHGEXSHA256:
-		ret := new(dhGEXSHA)
-		ret.hashFunc = crypto.SHA256
-		ret.JsonLog = new(gexJsonLog)
-		ret.JsonLog.Parameters = new(ztoolsKeys.DHParams)
-		return ret
-
-	default:
-		panic("Unimplemented GEX selected")
-	}
 }
 
 func (gex *dhGEXSHA) Client(c packetConn, randSource io.Reader, magics *handshakeMagics, config *Config) (*kexResult, error) {
@@ -888,7 +806,7 @@ func (gex *dhGEXSHA) Client(c packetConn, randSource io.Reader, magics *handshak
 	// Check if g is safe by verifying that 1 < g < p-1
 	pMinusOne := new(big.Int).Sub(msg.P, bigOne)
 	if msg.G.Cmp(bigOne) <= 0 || msg.G.Cmp(pMinusOne) >= 0 {
-		return nil, errors.New("ssh: server provided gex g is not safe")
+		return nil, fmt.Errorf("ssh: server provided gex g is not safe")
 	}
 
 	// Send GexInit
@@ -937,7 +855,7 @@ func (gex *dhGEXSHA) Client(c packetConn, randSource io.Reader, magics *handshak
 
 	// Check if k is safe by verifying that k > 1 and k < p - 1
 	if kInt.Cmp(bigOne) <= 0 || kInt.Cmp(pMinusOne) >= 0 {
-		return nil, errors.New("ssh: derived k is not safe")
+		return nil, fmt.Errorf("ssh: derived k is not safe")
 	}
 
 	h := gex.hashFunc.New()

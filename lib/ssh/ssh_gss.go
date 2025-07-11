@@ -115,7 +115,7 @@ func parseGSSAPIPayload(payload []byte) (*userAuthRequestGSSAPI, error) {
 			desiredMech []byte
 			err         error
 		)
-		desiredMech, _, ok = parseString(rest)
+		desiredMech, rest, ok = parseString(rest)
 		if !ok {
 			return nil, errors.New("parse string failed")
 		}

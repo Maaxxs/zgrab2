@@ -35,11 +35,11 @@ type DHParams struct {
 type auxDHParams struct {
 	Prime         *cryptoParameter `json:"prime"`
 	Generator     *cryptoParameter `json:"generator"`
-	ServerPublic  *cryptoParameter `json:"server_public,omitempty"`
-	ServerPrivate *cryptoParameter `json:"server_private,omitempty"`
-	ClientPublic  *cryptoParameter `json:"client_public,omitempty"`
-	ClientPrivate *cryptoParameter `json:"client_private,omitempty"`
-	SessionKey    *cryptoParameter `json:"session_key,omitempty"`
+	ServerPublic  *cryptoParameter `json:"server_public"`
+	ServerPrivate *cryptoParameter `json:"server_private"`
+	ClientPublic  *cryptoParameter `json:"client_public"`
+	ClientPrivate *cryptoParameter `json:"client_private"`
+	SessionKey    *cryptoParameter `json:"session_key"`
 }
 
 // MarshalJSON implements the json.Marshal interface

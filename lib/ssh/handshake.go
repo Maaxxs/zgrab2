@@ -158,7 +158,7 @@ func (t *handshakeTransport) waitSession() error {
 		return err
 	}
 	if p[0] != msgNewKeys {
-		return errors.New("ssh: first packet should be msgNewKeys")
+		return fmt.Errorf("ssh: first packet should be msgNewKeys")
 	}
 
 	return nil
@@ -396,7 +396,7 @@ func (t *handshakeTransport) readOnePacket(first bool) ([]byte, error) {
 	}
 
 	if first && p[0] != msgKexInit {
-		return nil, errors.New("ssh: first packet should be msgKexInit")
+		return nil, fmt.Errorf("ssh: first packet should be msgKexInit")
 	}
 
 	if p[0] != msgKexInit {
@@ -621,8 +621,6 @@ func (t *handshakeTransport) enterKeyExchange(otherInitPacket []byte) error {
 	if !ok {
 		return fmt.Errorf("ssh: unexpected key exchange algorithm %v", t.algorithms.kex)
 	}
-
-	kex = kex.GetNew(t.algorithms.kex)
 
 	if t.config.ConnLog != nil {
 		t.config.ConnLog.KeyExchange = kex

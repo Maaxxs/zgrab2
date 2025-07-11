@@ -210,7 +210,7 @@ func (ch *channel) writePacket(packet []byte) error {
 	return err
 }
 
-func (ch *channel) sendMessage(msg any) error {
+func (ch *channel) sendMessage(msg interface{}) error {
 	if debugMux {
 		log.Printf("send(%d): %#v", ch.mux.chanList.offset, msg)
 	}
@@ -455,7 +455,7 @@ func (m *mux) newChannel(chanType string, direction channelDirection, extraData 
 		extPending:       newBuffer(),
 		direction:        direction,
 		incomingRequests: make(chan *Request, chanSize),
-		msg:              make(chan any, chanSize),
+		msg:              make(chan interface{}, chanSize),
 		chanType:         chanType,
 		extraData:        extraData,
 		mux:              m,

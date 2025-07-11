@@ -30,9 +30,9 @@ type PageFingerprint []byte
 
 // Response represents the response from an HTTP request.
 type Response struct {
-	Status     string   `json:"status_line,omitempty"` // e.g. "200 OK"
-	StatusCode int      `json:"status_code,omitempty"` // e.g. 200
-	Protocol   Protocol `json:"protocol,omitempty"`
+	Status     string   `json:"status_line"` // e.g. "200 OK"
+	StatusCode int      `json:"status_code"` // e.g. 200
+	Protocol   Protocol `json:"protocol"`
 
 	// Header maps header keys to values. If the response had multiple
 	// headers with the same key, they may be concatenated, with comma
@@ -42,13 +42,13 @@ type Response struct {
 	// omitted from Header.
 	//
 	// Keys in the map are canonicalized (see CanonicalHeaderKey).
-	Header Header `json:"headers,omitempty"`
+	Header Header `json:"headers"`
 
 	// The raw bytes of the MIME headers, as read from the underlying
 	// reader.  This allows for post-processing to be done on an exact
 	// copy of the headers.  The headers will not be canonicalized nor
 	// re-ordered or converted to a map.
-	HeadersRaw []byte `json:"headers_raw,omitempty"`
+	HeadersRaw []byte `json:"headers_raw"`
 
 	// Body represents the response body.
 	//
@@ -63,23 +63,23 @@ type Response struct {
 	// The Body is automatically dechunked if the server replied
 	// with a "chunked" Transfer-Encoding.
 	Body       io.ReadCloser   `json:"-"`
-	BodyText   string          `json:"body,omitempty"`
-	BodySHA256 PageFingerprint `json:"body_sha256,omitempty"`
+	BodyText   string          `json:"body"`
+	BodySHA256 PageFingerprint `json:"body_sha256"`
 	// BodyHash is the hash digest hex of the decoded http body, formatted `<kind>:<hex>`
 	// e.g. `sha256:deadbeef100020003000400050006000700080009000a000b000c000d000e000`
-	BodyHash string `json:"body_hash,omitempty"`
+	BodyHash string `json:"body_hash"`
 	// Number of bytes read from the server and encoded into BodyText
-	BodyTextLength int64 `json:"body_length,omitempty"`
+	BodyTextLength int64 `json:"body_length"`
 
 	// ContentLength records the length of the associated content. The
 	// value -1 indicates that the length is unknown. Unless Request.Method
 	// is "HEAD", values >= 0 indicate that the given number of bytes may
 	// be read from Body.
-	ContentLength int64 `json:"content_length,omitempty"`
+	ContentLength int64 `json:"content_length"`
 
 	// Contains transfer encodings from outer-most to inner-most. Value is
 	// nil, means that "identity" encoding is used.
-	TransferEncoding []string `json:"transfer_encoding,omitempty"`
+	TransferEncoding []string `json:"transfer_encoding"`
 
 	// Close records whether the header directed that the connection be
 	// closed after reading Body. The value is advice for clients: neither
@@ -107,12 +107,12 @@ type Response struct {
 	//
 	// After Body.Read has returned io.EOF, Trailer will contain
 	// any trailer values sent by the server.
-	Trailer Header `json:"trailers,omitempty"`
+	Trailer Header `json:"trailers"`
 
 	// Request is the request that was sent to obtain this Response.
 	// Request's Body is nil (having already been consumed).
 	// This is only populated for Client requests.
-	Request *Request `json:"request,omitempty"`
+	Request *Request `json:"request"`
 
 	// TLS contains information about the TLS connection on which the
 	// response was received. It is nil for unencrypted responses.

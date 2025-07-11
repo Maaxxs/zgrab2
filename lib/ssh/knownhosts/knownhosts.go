@@ -247,9 +247,8 @@ func (db *hostKeyDB) parseLine(line []byte, filename string, linenum int) error 
 }
 
 func newHostnameMatcher(pattern string) (matcher, error) {
-	split := strings.Split(pattern, ",")
-	hps := make(hostPatterns, 0, len(split))
-	for _, p := range split {
+	var hps hostPatterns
+	for _, p := range strings.Split(pattern, ",") {
 		if len(p) == 0 {
 			continue
 		}
@@ -454,7 +453,7 @@ func Normalize(address string) string {
 
 // Line returns a line to add append to the known_hosts files.
 func Line(addresses []string, key ssh.PublicKey) string {
-	trimmed := make([]string, 0, len(addresses))
+	var trimmed []string
 	for _, a := range addresses {
 		trimmed = append(trimmed, Normalize(a))
 	}

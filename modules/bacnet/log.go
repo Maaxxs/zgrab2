@@ -6,13 +6,13 @@ type Log struct {
 	IsBACNet                    bool   `json:"is_bacnet"`
 	InstanceNumber              uint32 `json:"instance_number"`
 	VendorID                    uint16 `json:"vendor_id"`
-	VendorName                  string `json:"vendor_name,omitempty"`
-	FirmwareRevision            string `json:"firmware_revision,omitempty"`
-	ApplicationSoftwareRevision string `json:"application_software_revision,omitempty"`
-	ObjectName                  string `json:"object_name,omitempty"`
-	ModelName                   string `json:"model_name,omitempty"`
-	Description                 string `json:"description,omitempty"`
-	Location                    string `json:"location,omitempty"`
+	VendorName                  string `json:"vendor_name"`
+	FirmwareRevision            string `json:"firmware_revision"`
+	ApplicationSoftwareRevision string `json:"application_software_revision"`
+	ObjectName                  string `json:"object_name"`
+	ModelName                   string `json:"model_name"`
+	Description                 string `json:"description"`
+	Location                    string `json:"location"`
 }
 
 func (log *Log) sendReadProperty(c net.Conn, oid ObjectID, pid PropertyID) ([]byte, error, bool) {

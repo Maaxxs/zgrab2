@@ -28,23 +28,23 @@ import (
 // Identical to the original from zgrab, with the addition of TLSLog.
 type ScanResults struct {
 	// Banner is the initial data banner sent by the server.
-	Banner string `json:"banner,omitempty"`
+	Banner string `json:"banner"`
 
 	// AuthTLSResp is the response to the AUTH TLS command.
 	// Only present if the FTPAuthTLS flag is set.
-	AuthTLSResp string `json:"auth_tls,omitempty"`
+	AuthTLSResp string `json:"auth_tls"`
 
 	// AuthSSLResp is the response to the AUTH SSL command.
 	// Only present if the FTPAuthTLS flag is set and AUTH TLS failed.
-	AuthSSLResp string `json:"auth_ssl,omitempty"`
+	AuthSSLResp string `json:"auth_ssl"`
 
 	// ImplicitTLS is true if the connection is wrapped in TLS, as opposed
 	// to via AUTH TLS or AUTH SSL.
-	ImplicitTLS bool `json:"implicit_tls,omitempty"`
+	ImplicitTLS bool `json:"implicit_tls"`
 
 	// TLSLog is the standard shared TLS handshake log.
 	// Only present if the FTPAuthTLS flag is set.
-	TLSLog *zgrab2.TLSLog `json:"tls,omitempty"`
+	TLSLog *zgrab2.TLSLog `json:"tls"`
 }
 
 // Flags are the FTP-specific command-line flags. Taken from the original zgrab.
@@ -171,12 +171,14 @@ func (ftp *Connection) isOKResponse(retCode string) bool {
 // readResponse reads an FTP response chunk from the server.
 // It returns the full response, as well as the status code alone.
 func (ftp *Connection) readResponse() (string, string, error) {
+	// log.Debugf("Start ftp read response")
 	respLen, err := zgrab2.ReadUntilRegex(ftp.conn, ftp.buffer[:], ftpEndRegex)
 	if err != nil {
 		return "", "", err
 	}
 	ret := string(ftp.buffer[0:respLen])
 	retCode := ftpEndRegex.FindStringSubmatch(ret)[1]
+	// log.Debugf("Finish ftp read response")
 	return ret, retCode, nil
 }
 
@@ -257,6 +259,7 @@ func (ftp *Connection) GetFTPSCertificates(ctx context.Context, target *zgrab2.S
 //     results.TLSLog.
 //   - Return SCAN_SUCCESS, &results, nil
 func (scanner *Scanner) Scan(ctx context.Context, dialGroup *zgrab2.DialerGroup, t *zgrab2.ScanTarget) (zgrab2.ScanStatus, any, error) {
+	// log.Debugf("Start ftp scan")
 	var err error
 	if dialGroup.L4Dialer == nil {
 		return zgrab2.SCAN_INVALID_INPUTS, nil, errors.New("l4 dialer is required for FTP")
@@ -303,5 +306,6 @@ func (scanner *Scanner) Scan(ctx context.Context, dialGroup *zgrab2.DialerGroup,
 			return zgrab2.TryGetScanStatus(err), &ftp.results, fmt.Errorf("error getting FTPS certificates for target %s: %w", t.String(), err)
 		}
 	}
+	// log.Debugf("Finished ftp scan")
 	return zgrab2.SCAN_SUCCESS, &ftp.results, nil
 }
